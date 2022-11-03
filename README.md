@@ -1,4 +1,4 @@
-# DBMS-Car-Service-Center
+# AUTOR - Auto Repair and Service Management System
 
 This is a Java 11 Spring Boot API Project.
 
