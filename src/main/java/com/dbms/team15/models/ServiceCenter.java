@@ -2,59 +2,86 @@ package com.dbms.team15.models;
 
 public class ServiceCenter {
 
-    private long service_center_id;
-	private String address;
-    private String telephone_number;
-    private int operational_status;
-    private int weekend_working;
+  private int SERVICE_CENTER_ID;
+  private String ADDRESS;
+  private String TELEPHONE_NO;
+  private int OPERATIONAL_STATUS;
+  private int WEEKEND_WORKING;
 
-    // Create constructor and getters
-    public ServiceCenter(long service_center_id, String address, String telephone_number, int operational_status, int weekend_working) {
-        this.service_center_id = service_center_id;
-        this.address = address;
-        this.telephone_number = telephone_number;
-        this.operational_status = operational_status;
-        this.weekend_working = weekend_working;
-    }
+  public ServiceCenter() {}
 
-    public long getService_center_id() {
-        return service_center_id;
-    }
+  // Create constructor and getters
+  public ServiceCenter(
+    int SERVICE_CENTER_ID,
+    String ADDRESS,
+    String TELEPHONE_NO,
+    int OPERATIONAL_STATUS,
+    int WEEKEND_WORKING
+  ) {
+    this.SERVICE_CENTER_ID = SERVICE_CENTER_ID;
+    this.ADDRESS = ADDRESS;
+    this.TELEPHONE_NO = TELEPHONE_NO;
+    this.OPERATIONAL_STATUS = OPERATIONAL_STATUS;
+    this.WEEKEND_WORKING = WEEKEND_WORKING;
+  }
 
-    public void setService_center_id(long service_center_id) {
-        this.service_center_id = service_center_id;
-    }
+  public int getSERVICE_CENTER_ID() {
+    return SERVICE_CENTER_ID;
+  }
 
-    public String getAddress() {
-        return address;
-    }
+  public String getADDRESS() {
+    return ADDRESS;
+  }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  public String getTELEPHONE_NO() {
+    return TELEPHONE_NO;
+  }
 
-    public String getTelephone_number() {
-        return telephone_number;
-    }   
+  public int getOPERATIONAL_STATUS() {
+    return OPERATIONAL_STATUS;
+  }
 
-    public void setTelephone_number(String telephone_number) {
-        this.telephone_number = telephone_number;
-    }
+  public int getWEEKEND_WORKING() {
+    return WEEKEND_WORKING;
+  }
 
-    public int getOperational_status() {
-        return operational_status;
-    }
+  public void setSERVICE_CENTER_ID(int SERVICE_CENTER_ID) {
+    this.SERVICE_CENTER_ID = SERVICE_CENTER_ID;
+  }
 
-    public void setOperational_status(int operational_status) {
-        this.operational_status = operational_status;
-    }
+  public void setADDRESS(String ADDRESS) {
+    this.ADDRESS = ADDRESS;
+  }
 
-    public int getWeekend_working() {
-        return weekend_working;
-    }
+  public void setTELEPHONE_NO(String TELEPHONE_NO) {
+    this.TELEPHONE_NO = TELEPHONE_NO;
+  }
 
-    public void setWeekend_working(int weekend_working) {
-        this.weekend_working = weekend_working;
-    }
+  public void setOPERATIONAL_STATUS(int OPERATIONAL_STATUS) {
+    this.OPERATIONAL_STATUS = OPERATIONAL_STATUS;
+  }
 
+  public void setWEEKEND_WORKING(int WEEKEND_WORKING) {
+    this.WEEKEND_WORKING = WEEKEND_WORKING;
+  }
+
+  @Override
+  public String toString() {
+    return (
+      "ServiceCenter{" +
+      "SERVICE_CENTER_ID=" +
+      SERVICE_CENTER_ID +
+      ", ADDRESS='" +
+      ADDRESS +
+      '\'' +
+      ", TELEPHONE_NO='" +
+      TELEPHONE_NO +
+      '\'' +
+      ", OPERATIONAL_STATUS=" +
+      OPERATIONAL_STATUS +
+      ", WEEKEND_WORKING=" +
+      WEEKEND_WORKING +
+      '}'
+    );
+  }
 }
