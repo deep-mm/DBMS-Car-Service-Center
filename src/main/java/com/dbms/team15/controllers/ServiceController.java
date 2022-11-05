@@ -18,70 +18,71 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ServiceController {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
-    @GetMapping("/api/service")
-    public List<ServicesCar> getServicesCar(){
-        String sql = "SELECT * FROM SERVICE";
+  @GetMapping("/api/service")
+  public List<ServiceCenter> getService() {
+    String sql = "SELECT * FROM SERVICE";
 
-        List<ServicesCar> service = jdbcTemplate.query(
-                sql,
-                BeanPropertyRowMapper.newInstance(Service.class)
-        );
+    List<Service> services = jdbcTemplate.query(
+      sql,
+      BeanPropertyRowMapper.newInstance(Service.class)
+    );
 
-        service.forEach(System.out::println);
-        return service;
-    }
+    services.forEach(System.out::println);
+    return services;
+  }
 
-    @GetMapping("/api/service")
-    public boolean addService(@RequestBody Service service){
-        String sql =
-            "INSERT INTO SERVICES_CAR (ID, CAR_ID, TIME_ESTIMATED) VALUES (?, ?, ?)";
+  @PostMapping("/api/service")
+  public boolean addService(@RequestBody Service service) {
+    String sql =
+      "INSERT INTO SERVICE (ID, SERVICE_NAME) VALUES (?, ?)";
 
-        jdbcTemplate.update(
-                sql,
-                servicesCar.getID(),
-                servicesCar.getCAR_ID(),
-                servicesCar.getTIME_ESTIMATED()
-        );
+    jdbcTemplate.update(
+      sql,
+      serviceCenter.getID(),
+      serviceCenter.getSERVICE_NAME(),
+    );
 
-        return true;
-    }
+    return true;
+  }
 
-    @GetMapping("/api/servicesCar/{id}")
-    public ServicesCar getServicesCarByName(@PathVariable int id){
-        String sql = "SELECT * FROM SERVICES_CAR WHERE ID = " + id;
+  @GetMapping("/api/service/{id}")
+  public ServiceCenter getServiceByName(@PathVariable int id) {
+    String sql = "SELECT * FROM SERVICE WHERE ID = " + id;
 
-        List<ServicesCar> servicesCars = jdbcTemplate.query(
-                sql,
-                BeanPropertyRowMapper.newInstance(ServicesCar.class)
-        );
-        return serviceCars.get(0);
+    List<Service> services = jdbcTemplate.query(
+      sql,
+      BeanPropertyRowMapper.newInstance(Service.class)
+    );
 
-    }
+    return services.get(0);
+  }
 
-    @PutMapping("/api/serviceCar/{id}")
-    public boolean updateServicesCar(@PathVariable int id, @RequestBody ServicesCar servicesCar){
-        String sql = "UPDATE SERVICES_CAR SET CAR_ID = ?, TIME_ESTIMATED = ? WHERE ID = ?";
+  @PutMapping("/api/service/{id}")
+  public boolean updateService(
+    @PathVariable int id,
+    @RequestBody Service service
+  ) {
+    String sql =
+      "UPDATE SERVICE SET SERVICE_NAME = ? WHERE ID = ?";
 
-        jdbcTemplate.update(
-                sql,
-                car.getCAR_ID(),
-                car.getTIME_ESTIMATED(),
-                car.getID()
-        );
+    jdbcTemplate.update(
+      sql,
+      serviceCenter.getSERVICE_NAME(),
+      id
+    );
 
-        return true;
-    }
+    return true;
+  }
 
-    @DeleteMapping("/api/servicesCar/{id}")
-    public boolean deleteCar(@PathVariable int id){
-        String sql = "DELETE FROM SERVICES_CAR WHERE ID = " + id;
+  @DeleteMapping("/api/service/{id}")
+  public boolean deleteServiceCenter(@PathVariable int id) {
+    String sql = "DELETE FROM SERVICE WHERE ID = " + id;
 
-        jdbcTemplate.update(sql);
+    jdbcTemplate.update(sql);
 
-        return true;
-    }
-
+    return true;
+  }
 }
