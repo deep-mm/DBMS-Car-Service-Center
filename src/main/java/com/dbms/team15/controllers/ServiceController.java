@@ -1,6 +1,6 @@
 package com.dbms.team15.controllers;
 
-import com.dbms.team15.models.ServicesCar;
+import com.dbms.team15.models.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,26 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-public class ServicesCarController {
+public class ServiceController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @GetMapping("/api/servicesCar")
+    @GetMapping("/api/service")
     public List<ServicesCar> getServicesCar(){
-        String sql = "SELECT * FROM SERVICES_CAR";
+        String sql = "SELECT * FROM SERVICE";
 
-        List<ServicesCar> servicesCar = jdbcTemplate.query(
+        List<ServicesCar> service = jdbcTemplate.query(
                 sql,
-                BeanPropertyRowMapper.newInstance(ServicesCar.class)
+                BeanPropertyRowMapper.newInstance(Service.class)
         );
 
-        servicesCar.forEach(System.out::println);
-        return servicesCar;
+        service.forEach(System.out::println);
+        return service;
     }
 
-    @PostMapping("/api/servicesCar")
-    public boolean addServicesCar(@RequestBody ServicesCar servicesCar){
+    @GetMapping("/api/service")
+    public boolean addService(@RequestBody Service service){
         String sql =
             "INSERT INTO SERVICES_CAR (ID, CAR_ID, TIME_ESTIMATED) VALUES (?, ?, ?)";
 
@@ -49,9 +49,9 @@ public class ServicesCarController {
         return true;
     }
 
-    @GetMapping("/api/servicesCar/{id}/{car_id}")
+    @GetMapping("/api/servicesCar/{id}")
     public ServicesCar getServicesCarByName(@PathVariable int id){
-        String sql = "SELECT * FROM SERVICES_CAR WHERE ID = " + id + " AND CAR_ID = " + car_id;
+        String sql = "SELECT * FROM SERVICES_CAR WHERE ID = " + id;
 
         List<ServicesCar> servicesCars = jdbcTemplate.query(
                 sql,
@@ -63,21 +63,21 @@ public class ServicesCarController {
 
     @PutMapping("/api/serviceCar/{id}")
     public boolean updateServicesCar(@PathVariable int id, @RequestBody ServicesCar servicesCar){
-        String sql = "UPDATE SERVICES_CAR SET TIME_ESTIMATED = ? WHERE ID = ? AND CAR_ID = ?";
+        String sql = "UPDATE SERVICES_CAR SET CAR_ID = ?, TIME_ESTIMATED = ? WHERE ID = ?";
 
         jdbcTemplate.update(
                 sql,
+                car.getCAR_ID(),
                 car.getTIME_ESTIMATED(),
-                id,
-                car_id;
+                car.getID()
         );
 
         return true;
     }
 
-    @DeleteMapping("/api/servicesCar/{id}/{car_id}")
+    @DeleteMapping("/api/servicesCar/{id}")
     public boolean deleteCar(@PathVariable int id){
-        String sql = "DELETE FROM SERVICES_CAR WHERE ID = " + id + " AND CAR_ID = " + car_id;
+        String sql = "DELETE FROM SERVICES_CAR WHERE ID = " + id;
 
         jdbcTemplate.update(sql);
 
