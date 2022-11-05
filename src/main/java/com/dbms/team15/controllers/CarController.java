@@ -35,7 +35,7 @@ public class CarController {
         return cars;
     }
 
-    @GetMapping("/api/car")
+    @PostMapping("/api/car")
     public boolean addCar(@RequestBody Car car){
         String sql =
             "INSERT INTO CAR (CAR_ID, MANUFACTURER, YEAR) VALUES (?, ?, ?)";
