@@ -1,25 +1,25 @@
 export class ServiceCenter {
 
-    service_center_id: number;
+    service_CENTER_ID: number;
     address: string;
-    telephone_no: string;
-    operational_status: number;
-    weekend_working: number;
+    telephone_NO: string;
+    operational_STATUS: number;
+    weekend_WORKING: number;
 
     constructor(json?: any) {
         if (json) {
-            this.service_center_id = json.service_center_id;
+            this.service_CENTER_ID = json.service_CENTER_ID;
             this.address = json.address;
-            this.telephone_no = json.telephone_no;
-            this.operational_status = json.operational_status;
-            this.weekend_working = json.weekend_working;
+            this.telephone_NO = json.telephone_NO;
+            this.operational_STATUS = json.operational_STATUS;
+            this.weekend_WORKING = json.weekend_WORKING;
         }
         else {
-            this.service_center_id = 0;
+            this.service_CENTER_ID = 0;
             this.address = "";
-            this.telephone_no = "";
-            this.operational_status = 0;
-            this.weekend_working = 0;
+            this.telephone_NO = "";
+            this.operational_STATUS = 0;
+            this.weekend_WORKING = 0;
         }
     }
 }

@@ -1,0 +1,29 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
+<button mat-raised-button style="margin-left: 20px;" (click)="addServiceCenter()">Add Service Center</button><br><br>
+
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Service Center ID</th>
+            <th scope="col">Address</th>
+            <th scope="col">Telephone No</th>
+            <th scope="col">Operational Status</th>
+            <th scope="col">Weekend Working</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let serviceCenter of serviceCenters" class="table-row-item">
+            <td>{{serviceCenter.service_CENTER_ID}}</td>
+            <td>{{serviceCenter.address}}</td>
+            <td>{{serviceCenter.telephone_NO}}</td>
+            <td>{{serviceCenter.operational_STATUS==1?'Operational':'Non Operational'}}</td>
+            <td>{{serviceCenter.weekend_WORKING==1?'Yes':'No'}}</td>
+            <td>
+                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)">Edit</button>
+                <button mat-raised-button color="warn" (click)="deleteServiceCenter(serviceCenter.service_CENTER_ID)" style="margin-left: 5px;">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

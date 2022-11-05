@@ -1,0 +1,48 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>{{update?'Update':'New'}} Service Center</h2>
+    <form #serviceCenterForm='ngForm'>
+        <div>
+            <mat-label>Service Center ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" required #ServiceCenterID="ngModel" [readonly]="update"
+                    [(ngModel)]="serviceCenter.service_CENTER_ID" name="ServiceCenterID" type="number" min="0"
+                    [class.is-invalid]="ServiceCenterID.invalid && (ServiceCenterID.touched || ServiceCenterID.dirty)">
+                <mat-error *ngIf="ServiceCenterID.invalid && (ServiceCenterID.touched || ServiceCenterID.dirty)">
+                    Enter a valid service center id
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Address</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Address="ngModel"
+                    [(ngModel)]="serviceCenter.address" name="Address" required type="text" maxlength="250"
+                    [class.is-invalid]="Address.invalid && (Address.touched || Address.dirty)">
+                <mat-error *ngIf="Address.invalid && (Address.touched || Address.dirty)">
+                    Enter a valid Address
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Telephone Number</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput required #TelephoneNo="ngModel"
+                    [(ngModel)]="serviceCenter.telephone_NO" name="TelephoneNo" type="text" maxlength="10" minlength="10"
+                    [class.is-invalid]="TelephoneNo.invalid && (TelephoneNo.touched || TelephoneNo.dirty)">
+                <mat-error *ngIf="TelephoneNo.invalid && (TelephoneNo.touched || TelephoneNo.dirty)">
+                    Enter a valid telephone number
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Weekend Working</mat-label><br>
+            <mat-checkbox #WeekendWorking="ngModel" name="WeekendWorking" [(ngModel)]="serviceCenter.weekend_WORKING">Yes</mat-checkbox>
+        </div>
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="serviceCenterForm.form.invalid" style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

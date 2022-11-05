@@ -13,12 +13,20 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminMainComponent } from './admin-main/admin-main.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { ServiceCenterComponent } from './service-center/service-center.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminMainComponent
+    AdminMainComponent,
+    ServiceCenterComponent,
+    AddServiceCenterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,11 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     HttpClientModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatCheckboxModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
