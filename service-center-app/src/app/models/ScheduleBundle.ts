@@ -1,15 +1,15 @@
 export class ScheduleBundle {
 
-    schedule_bundle_id: number;
+    schedule_BUNDLE_ID: number;
     name: string;
 
     constructor(json?: any) {
         if (json) {
-            this.schedule_bundle_id = json.schedule_bundle_id;
+            this.schedule_BUNDLE_ID = json.schedule_BUNDLE_ID;
             this.name = json.name;
         }
-        else {
-            this.schedule_bundle_id = 0;
+        else{
+            this.schedule_BUNDLE_ID = 0;
             this.name = "";
         }
     }

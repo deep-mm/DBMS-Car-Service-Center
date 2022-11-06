@@ -1,16 +1,16 @@
 export class MaintenanceService {
     
     id: number;
-    schdeule_bundle_id: number;
+    schedule_BUNDLE_ID: number;
 
     constructor(json?: any) {
         if (json) {
             this.id = json.id;
-            this.schdeule_bundle_id = json.schdeule_bundle_id;
+            this.schedule_BUNDLE_ID = json.schedule_BUNDLE_ID;
         }
-        else {
+        else{
             this.id = 0;
-            this.schdeule_bundle_id = 0;
+            this.schedule_BUNDLE_ID = 0;
         }
     }
 }

@@ -1,16 +1,16 @@
 export class Service {
 
     id: number;
-    service_name: string;
+    service_NAME: string;
 
     constructor(json?: any) {
         if (json) {
             this.id = json.id;
-            this.service_name = json.service_name;
+            this.service_NAME = json.service_NAME;
         }
-        else {
+        else{
             this.id = 0;
-            this.service_name = "";
+            this.service_NAME = "";
         }
     }
 }

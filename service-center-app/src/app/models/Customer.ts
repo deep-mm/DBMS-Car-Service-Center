@@ -1,9 +1,9 @@
 export class Customer {
 
-    customer_id: number;
-    service_center_id: number;
-    first_name: string;
-    last_name: string;
+    customer_ID: number;
+    service_CENTER_ID: number;
+    first_NAME: string;
+    last_NAME: string;
     email: string;
     address: string;
     username: string;
@@ -12,10 +12,10 @@ export class Customer {
 
     constructor(json?: any) {
         if (json) {
-            this.customer_id = json.customer_id;
-            this.service_center_id = json.service_center_id;
-            this.first_name = json.first_name;
-            this.last_name = json.last_name;
+            this.customer_ID = json.customer_ID;
+            this.service_CENTER_ID = json.service_CENTER_ID;
+            this.first_NAME = json.first_NAME;
+            this.last_NAME = json.last_NAME;
             this.email = json.email;
             this.address = json.address;
             this.username = json.username;
@@ -23,10 +23,10 @@ export class Customer {
             this.status = json.status;
         }
         else{
-            this.customer_id = 0;
-            this.service_center_id = 0;
-            this.first_name = "";
-            this.last_name = "";
+            this.customer_ID = 0;
+            this.service_CENTER_ID = 0;
+            this.first_NAME = "";
+            this.last_NAME = "";
             this.email = "";
             this.address = "";
             this.username = "";

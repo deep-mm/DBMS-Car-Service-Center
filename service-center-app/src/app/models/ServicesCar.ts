@@ -1,20 +1,19 @@
 export class ServicesCar {
 
     id: number;
-    car_id: number;
-    time_estimated: number;
+    car_ID: number;
+    time_ESTIMATED: number;
 
     constructor(json?: any) {
         if (json) {
             this.id = json.id;
-            this.car_id = json.car_id;
-            this.time_estimated = json.time_estimated;
+            this.car_ID = json.car_ID;
+            this.time_ESTIMATED = json.time_ESTIMATED;
         }
-        else {
+        else{
             this.id = 0;
-            this.car_id = 0;
-            this.time_estimated = 0;
+            this.car_ID = 0;
+            this.time_ESTIMATED = 0;
         }
     }
-
 }

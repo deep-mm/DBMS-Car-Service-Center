@@ -1,19 +1,19 @@
 export class Invoice {
 
-    invoice_id: number;
-    invoice_status: number;
-    total_cost: number;
+    invoice_ID: number;
+    invoice_STATUS: number;
+    total_COST: number;
 
     constructor(json?: any) {
         if (json) {
-            this.invoice_id = json.invoice_id;
-            this.invoice_status = json.invoice_status;
-            this.total_cost = json.total_cost;
+            this.invoice_ID = json.invoice_ID;
+            this.invoice_STATUS = json.invoice_STATUS;
+            this.total_COST = json.total_COST;
         }
-        else {
-            this.invoice_id = 0;
-            this.invoice_status = 0;
-            this.total_cost = 0;
+        else{
+            this.invoice_ID = 0;
+            this.invoice_STATUS = 0;
+            this.total_COST = 0;
         }
     }
 }

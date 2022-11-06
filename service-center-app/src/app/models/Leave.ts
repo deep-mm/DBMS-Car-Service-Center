@@ -1,28 +1,28 @@
 export class Leave {
 
-    leave_id: number;
-    start_date: string;
-    end_date: string;
+    leave_ID: number;
+    start_DATE: string;
+    end_DATE: string;
     status: number;
-    employee_id: number;
-    service_center_id: number;
+    employee_ID: number;
+    service_CENTER_ID: number;
 
     constructor(json?: any) {
         if (json) {
-            this.leave_id = json.leave_id;
-            this.start_date = json.start_date;
-            this.end_date = json.end_date;
+            this.leave_ID = json.leave_ID;
+            this.start_DATE = json.start_DATE;
+            this.end_DATE = json.end_DATE;
             this.status = json.status;
-            this.employee_id = json.employee_id;
-            this.service_center_id = json.service_center_id;
+            this.employee_ID = json.employee_ID;
+            this.service_CENTER_ID = json.service_CENTER_ID;
         }
-        else {
-            this.leave_id = 0;
-            this.start_date = "";
-            this.end_date = "";
+        else{
+            this.leave_ID = 0;
+            this.start_DATE = "";
+            this.end_DATE = "";
             this.status = 0;
-            this.employee_id = 0;
-            this.service_center_id = 0;
+            this.employee_ID = 0;
+            this.service_CENTER_ID = 0;
         }
     }
 }

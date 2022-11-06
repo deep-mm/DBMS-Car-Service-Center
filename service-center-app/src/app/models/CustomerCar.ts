@@ -2,27 +2,30 @@ export class CustomerCar {
 
     vin: number;
     mileage: number;
-    last_scheduled_maintenance: number;
-    customer_id: number;
-    service_center_id: number;
-    car_id: number;
+    last_SCHEDULED_MAINTENANCE: number;
+    customer_ID: number;
+    service_CENTER_ID: number;
+    car_ID: number;
+    year: number;
 
     constructor(json?: any) {
         if (json) {
             this.vin = json.vin;
             this.mileage = json.mileage;
-            this.last_scheduled_maintenance = json.last_scheduled_maintenance;
-            this.customer_id = json.customer_id;
-            this.service_center_id = json.service_center_id;
-            this.car_id = json.car_id;
+            this.last_SCHEDULED_MAINTENANCE = json.last_SCHEDULED_MAINTENANCE;
+            this.customer_ID = json.customer_ID;
+            this.service_CENTER_ID = json.service_CENTER_ID;
+            this.car_ID = json.car_ID;
+            this.year = json.year;
         }
-        else {
+        else{
             this.vin = 0;
             this.mileage = 0;
-            this.last_scheduled_maintenance = 0;
-            this.customer_id = 0;
-            this.service_center_id = 0;
-            this.car_id = 0;
+            this.last_SCHEDULED_MAINTENANCE = 0;
+            this.customer_ID = 0;
+            this.service_CENTER_ID = 0;
+            this.car_ID = 0;
+            this.year = 0;
         }
     }
 }
