@@ -21,7 +21,8 @@
             <td>{{serviceCenter.operational_STATUS==1?'Operational':'Non Operational'}}</td>
             <td>{{serviceCenter.weekend_WORKING==1?'Yes':'No'}}</td>
             <td>
-                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)">Edit</button>
+                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)">Manager</button>
+                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)" style="margin-left: 5px;">Edit</button>
                 <button mat-raised-button color="warn" (click)="deleteServiceCenter(serviceCenter.service_CENTER_ID)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>

@@ -1,0 +1,31 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Service Category</h2>
+    <form #serviceCenterForm='ngForm'>
+        <div>
+            <mat-label>Service Category ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" required #ServiceCategoryID="ngModel"
+                    [(ngModel)]="serviceCategory.category_id" name="ServiceCategoryID" type="number" min="0"
+                    [class.is-invalid]="ServiceCategoryID.invalid && (ServiceCategoryID.touched || ServiceCategoryID.dirty)">
+                <mat-error *ngIf="ServiceCategoryID.invalid && (ServiceCategoryID.touched || ServiceCategoryID.dirty)">
+                    Enter a valid service category id
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Service Category Name</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #ServiceCategoryName="ngModel"
+                    [(ngModel)]="serviceCategory.category_name" name="ServiceCategoryName" required type="text" maxlength="250"
+                    [class.is-invalid]="ServiceCategoryName.invalid && (ServiceCategoryName.touched || ServiceCategoryName.dirty)">
+                <mat-error *ngIf="ServiceCategoryName.invalid && (ServiceCategoryName.touched || ServiceCategoryName.dirty)">
+                    Enter a valid Service Category Name
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="serviceCenterForm.form.invalid" style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

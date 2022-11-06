@@ -20,19 +20,6 @@ export class AddServiceCenterComponent implements OnInit {
     weekend_WORKING: 0
   });
 
-  employee: Employee = new Employee({
-    employee_id: 0,
-    service_center_id: 0,
-    name: "",
-    address: "",
-    start_date: "",
-    role: 0,
-    email: "",
-    phone: "",
-    username: "",
-    password: ""
-  });
-
   loading: boolean = false;
   update: boolean = false;
 

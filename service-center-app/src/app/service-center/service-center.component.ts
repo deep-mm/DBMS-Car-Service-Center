@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AddServiceCenterComponent } from '../add-service-center/add-service-center.component';
+import { Employee } from '../models/Employee';
 import { ServiceCenter } from '../models/ServiceCenter';
+import { EmployeeService } from '../services/employee/employee.service';
 import { ServiceCenterService } from '../services/service-center/service-center.service';
 
 @Component({
@@ -13,6 +15,7 @@ import { ServiceCenterService } from '../services/service-center/service-center.
 export class ServiceCenterComponent implements OnInit {
 
   serviceCenters: ServiceCenter[] = [];
+  employee: any = null;
   loading: boolean = false;
 
   constructor(public router: Router, public _apiService: ServiceCenterService, private _snackBar: MatSnackBar) { }

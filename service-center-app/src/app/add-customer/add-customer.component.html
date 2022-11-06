@@ -1,0 +1,124 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Customer</h2>
+    <form #customerForm='ngForm'>
+        <div>
+            <mat-label>Customer ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" required #CustomerID="ngModel"
+                    [(ngModel)]="customer.customer_id" name="CustomerID" type="number" min="0"
+                    [class.is-invalid]="CustomerID.invalid && (CustomerID.touched || CustomerID.dirty)">
+                <mat-error *ngIf="CustomerID.invalid && (CustomerID.touched || CustomerID.dirty)">
+                    Enter a valid customer id
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>First Name</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #FirstName="ngModel" [(ngModel)]="customer.first_name" name="FirstName" required
+                    type="text" maxlength="250"
+                    [class.is-invalid]="FirstName.invalid && (FirstName.touched || FirstName.dirty)">
+                <mat-error *ngIf="FirstName.invalid && (FirstName.touched || FirstName.dirty)">
+                    Enter a valid first name
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Last Name</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #LastName="ngModel" [(ngModel)]="customer.last_name" name="LastName" required
+                    type="text" maxlength="250"
+                    [class.is-invalid]="LastName.invalid && (LastName.touched || LastName.dirty)">
+                <mat-error *ngIf="LastName.invalid && (LastName.touched || LastName.dirty)">
+                    Enter a valid last name
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Email</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Email="ngModel" [(ngModel)]="customer.email" name="Email" required type="email"
+                    maxlength="250" [class.is-invalid]="Email.invalid && (Email.touched || Email.dirty)">
+                <mat-error *ngIf="Email.invalid && (Email.touched || Email.dirty)">
+                    Enter a valid email
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Address</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Address="ngModel" [(ngModel)]="customer.address" name="Address" required type="text"
+                    maxlength="250" [class.is-invalid]="Address.invalid && (Address.touched || Address.dirty)">
+                <mat-error *ngIf="Address.invalid && (Address.touched || Address.dirty)">
+                    Enter a valid address
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Username</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Username="ngModel" [(ngModel)]="customer.username" name="Username" required type="text"
+                    maxlength="250" [class.is-invalid]="Username.invalid && (Username.touched || Username.dirty)">
+                <mat-error *ngIf="Username.invalid && (Username.touched || Username.dirty)">
+                    Enter a valid username
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Password</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Password="ngModel" [(ngModel)]="customer.password" name="Password" required
+                    type="password" maxlength="250"
+                    [class.is-invalid]="Password.invalid && (Password.touched || Password.dirty)">
+                <mat-error *ngIf="Password.invalid && (Password.touched || Password.dirty)">
+                    Enter a valid password
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>VIN</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #VIN="ngModel" [(ngModel)]="customerCar.vin" name="VIN" required type="number"
+                    maxlength="50" [class.is-invalid]="VIN.invalid && (VIN.touched || VIN.dirty)">
+                <mat-error *ngIf="VIN.invalid && (VIN.touched || VIN.dirty)">
+                    Enter a valid VIN
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Mileage</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Mileage="ngModel" [(ngModel)]="customerCar.mileage" name="Mileage" required
+                    type="number" maxlength="50"
+                    [class.is-invalid]="Mileage.invalid && (Mileage.touched || Mileage.dirty)">
+                <mat-error *ngIf="Mileage.invalid && (Mileage.touched || Mileage.dirty)">
+                    Enter a valid Mileage
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Car Model</mat-label><br>
+            <mat-form-field appearance="outline">
+                <mat-select [(ngModel)]="customerCar.car_id" name="food">
+                    <mat-option *ngFor="let car of cars" [value]="car.car_id">
+                      {{car.manufacturer}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="customerForm.form.invalid"
+            style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

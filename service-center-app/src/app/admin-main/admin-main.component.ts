@@ -17,4 +17,12 @@ export class AdminMainComponent implements OnInit {
     this.router.navigate(['serviceCenter']);
   }
 
+  viewRepairServiceCategories() {
+    this.router.navigate(['serviceCategories']);
+  }
+
+  viewScheduleBundles() {
+    this.router.navigate(['scheduleBundles']);
+  }
+
 }

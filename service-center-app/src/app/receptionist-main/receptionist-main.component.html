@@ -1,0 +1,35 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
+<button mat-raised-button style="margin-left: 20px;" (click)="addCustomer()">Add Customer</button><br><br>
+
+<mat-checkbox [(ngModel)]="filter" (ngModelChange)="filterCustomers()">Filter: Customers with unpaid invoices</mat-checkbox>
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Customer ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers" class="table-row-item">
+            <td>{{customer.customer_id}}</td>
+            <td>{{customer.first_name}}</td>
+            <td>{{customer.last_name}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.username}}</td>
+            <td>{{customer.password}}</td>
+            <td>{{customer.status==1?'Active':'Inactive'}}</td>
+            <td>
+                <button mat-raised-button color="warn" (click)="deleteCustomer(customer.customer_id)" style="margin-left: 5px;">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

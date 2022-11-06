@@ -19,6 +19,14 @@ import { ServiceCenterComponent } from './service-center/service-center.componen
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReceptionistMainComponent } from './receptionist-main/receptionist-main.component';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ServiceCategoryComponent } from './service-category/service-category.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
+import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +34,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LoginComponent,
     AdminMainComponent,
     ServiceCenterComponent,
-    AddServiceCenterComponent
+    AddServiceCenterComponent,
+    ReceptionistMainComponent,
+    AddCustomerComponent,
+    ServiceCategoryComponent,
+    AddEmployeeComponent,
+    EmployeeDetailsComponent,
+    AddServiceCategoryComponent,
+    ScheduleBundleComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +57,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatToolbarModule,
     MatIconModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

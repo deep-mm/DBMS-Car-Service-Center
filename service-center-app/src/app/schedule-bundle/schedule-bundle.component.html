@@ -1,0 +1,22 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
+<button mat-raised-button style="margin-left: 20px;" (click)="addScheduleBundle()">Add Schedule Bundle</button><br><br>
+
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Schedule Bundle ID</th>
+            <th scope="col">Schedule Bundle Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let scheduleBundle of scheduleBundles" class="table-row-item">
+            <td>{{scheduleBundle.schedule_bundle_id}}</td>
+            <td>{{scheduleBundle.name}}</td>
+            <td>
+                <button mat-raised-button color="warn" (click)="deleteScheduleBundle(scheduleBundle.schedule_bundle_id)" style="margin-left: 5px;">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,22 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
+<button mat-raised-button style="margin-left: 20px;" (click)="addServiceCategory()">Add Service Category</button><br><br>
+
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Category ID</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let serviceCategory of serviceCategories" class="table-row-item">
+            <td>{{serviceCategory.category_id}}</td>
+            <td>{{serviceCategory.category_name}}</td>
+            <td>
+                <button mat-raised-button color="warn" (click)="deleteServiceCategory(serviceCategory.category_id)" style="margin-left: 5px;">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
