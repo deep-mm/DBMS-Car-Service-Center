@@ -2,6 +2,8 @@ package com.dbms.team15.controllers;
 
 import com.dbms.team15.models.Service;
 import java.util.List;
+
+import com.dbms.team15.models.ServiceCenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,7 +44,7 @@ public class ServiceController {
     jdbcTemplate.update(
       sql,
       service.getID(),
-      service.getSERVICE_NAME(),
+      service.getSERVICE_NAME()
     );
 
     return true;
