@@ -381,4 +381,50 @@ public class CreateTableController {
 
     return true;
   }
+
+  @GetMapping("/create/trigger/check_customer_status")
+  public boolean CreateTriggerCheckCustomerStatus() {
+    String sql = new StringBuilder()
+    .append("CREATE TRIGGER CHECK_CUSTOMER_STATUS ")
+    .append("AFTER INSERT ON CUSTOMER_CAR ")
+    .append("FOR EACH ROW ")
+    .append("BEGIN ")
+    .append("UPDATE CUSTOMER C ")
+    .append("SET C.status = 1 ")
+    .append("WHERE C.customer_id = :new.customer_id AND C.service_center_id = :new.service_center_id; ")
+    .append("END; ")
+    .toString();
+
+    jdbcTemplate.execute(
+      sql
+    );
+
+    return true;
+  }
+
+  @GetMapping("/create/trigger/check_customer_status_after_delete")
+  public boolean CreateTriggerCheckCustomerStatusAfterDelete() {
+    
+    String sql = new StringBuilder()
+    .append("CREATE TRIGGER CHECK_CUSTOMER_STATUS_AFTER_DELETE ")
+    .append("AFTER DELETE ON CUSTOMER_CAR ")
+    .append("FOR EACH ROW ")
+    .append("DECLARE countCars INT; ")
+    .append("BEGIN ")
+    .append("SELECT Count(*) into countCars FROM CUSTOMER_CAR WHERE customer_id = :old.customer_id AND service_center_id = :old.service_center_id; ")
+    .append("IF countCars = 0 THEN ")
+    .append("UPDATE CUSTOMER C ")
+    .append("SET C.status = 0 ")
+    .append("WHERE C.customer_id = :old.customer_id AND C.service_center_id = :old.service_center_id; ")
+    .append("END IF; ")
+    .append("END; ")
+    .toString();
+
+    jdbcTemplate.execute(
+      sql
+    );
+
+    return true;
+  }
+
 }
