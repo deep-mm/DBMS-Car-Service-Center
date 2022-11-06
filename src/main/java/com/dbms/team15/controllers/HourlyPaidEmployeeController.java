@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-
 public class HourlyPaidEmployeeController {
     @Autowired
     private JdbcTemplate jdbcTemplate;

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-
 public class MaintenanceService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
