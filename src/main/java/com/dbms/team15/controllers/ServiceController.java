@@ -22,7 +22,7 @@ public class ServiceController {
   private JdbcTemplate jdbcTemplate;
 
   @GetMapping("/api/service")
-  public List<ServiceCenter> getService() {
+  public List<Service> getService() {
     String sql = "SELECT * FROM SERVICE";
 
     List<Service> services = jdbcTemplate.query(
@@ -41,15 +41,15 @@ public class ServiceController {
 
     jdbcTemplate.update(
       sql,
-      serviceCenter.getID(),
-      serviceCenter.getSERVICE_NAME(),
+      service.getID(),
+      service.getSERVICE_NAME(),
     );
 
     return true;
   }
 
   @GetMapping("/api/service/{id}")
-  public ServiceCenter getServiceByName(@PathVariable int id) {
+  public Service getServiceByName(@PathVariable int id) {
     String sql = "SELECT * FROM SERVICE WHERE ID = " + id;
 
     List<Service> services = jdbcTemplate.query(
@@ -70,7 +70,7 @@ public class ServiceController {
 
     jdbcTemplate.update(
       sql,
-      serviceCenter.getSERVICE_NAME(),
+      service.getSERVICE_NAME(),
       id
     );
 
@@ -78,7 +78,7 @@ public class ServiceController {
   }
 
   @DeleteMapping("/api/service/{id}")
-  public boolean deleteServiceCenter(@PathVariable int id) {
+  public boolean deleteService(@PathVariable int id) {
     String sql = "DELETE FROM SERVICE WHERE ID = " + id;
 
     jdbcTemplate.update(sql);
