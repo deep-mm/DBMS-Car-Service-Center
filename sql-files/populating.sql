@@ -3,42 +3,54 @@ INSERT INTO "SERVICE_CENTER" (
         ADDRESS,
         TELEPHONE_NO,
         OPERATIONAL_STATUS,
-        WEEKEND_WORKING
+        WEEKEND_WORKING,
+        MIN_WAGE,
+        MAX_WAGE
     )
 VALUES (
         '30001',
         '3921 Western Blvd, Raleigh, NC 27606',
         '3392601234',
         '0',
-        '1'
+        '1',
+        '30',
+        '40'
     );
 INSERT INTO "SERVICE_CENTER" (
         SERVICE_CENTER_ID,
         ADDRESS,
         TELEPHONE_NO,
         OPERATIONAL_STATUS,
-        WEEKEND_WORKING
+        WEEKEND_WORKING,
+        MIN_WAGE,
+        MAX_WAGE
     )
 VALUES (
         '30002',
         '4500 Preslyn Dr Suite 103, Raleigh, NC 27616',
         '8576890280',
         '0',
-        '1'
+        '1',
+        '25',
+        '35'
     );
 INSERT INTO "SERVICE_CENTER" (
         SERVICE_CENTER_ID,
         ADDRESS,
         TELEPHONE_NO,
         OPERATIONAL_STATUS,
-        WEEKEND_WORKING
+        WEEKEND_WORKING,
+        MIN_WAGE,
+        MAX_WAGE
     )
 VALUES (
         '30003',
         '9515 Chapel Hill Rd, Morrisville, NC 27560',
         '7798182200',
         '0',
-        '0'
+        '0',
+        '20',
+        '25'
     );
 INSERT INTO "CAR" (CAR_ID, MANUFACTURER)
 VALUES ('1', 'Honda');

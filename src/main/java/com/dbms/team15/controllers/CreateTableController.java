@@ -22,6 +22,8 @@ public class CreateTableController {
     .append("TELEPHONE_NO VARCHAR(15) NOT NULL, ")
     .append("OPERATIONAL_STATUS INTEGER NOT NULL, ")
     .append("WEEKEND_WORKING INTEGER NOT NULL, ")
+    .append("MIN_WAGE INTEGER NOT NULL, ")
+    .append("MAX_WAGE INTEGER NOT NULL, ")
     .append("PRIMARY KEY (SERVICE_CENTER_ID), ")
     .append("CHECK (OPERATIONAL_STATUS IN (0, 1)), ")
     .append("CHECK (WEEKEND_WORKING IN (0, 1)) )")
