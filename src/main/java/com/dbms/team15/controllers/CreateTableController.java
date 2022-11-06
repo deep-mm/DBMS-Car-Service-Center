@@ -40,8 +40,6 @@ public class CreateTableController {
     .append("CREATE TABLE CAR ( ")
     .append("CAR_ID INTEGER, ")
     .append("MANUFACTURER VARCHAR(250) NOT NULL, ")
-    .append("YEAR INTEGER NOT NULL, ")
-    .append("CHECK (1900 <= YEAR AND YEAR <= 2022), ")
     .append("PRIMARY KEY (CAR_ID) )")
     .toString();
 
@@ -115,6 +113,8 @@ public class CreateTableController {
     .append("CUSTOMER_ID INTEGER, ")
     .append("SERVICE_CENTER_ID INTEGER, ")
     .append("CAR_ID INTEGER, ")
+    .append("YEAR INTEGER NOT NULL, ")
+    .append("CHECK (1900 <= YEAR AND YEAR <= 2022), ")
     .append("FOREIGN KEY (CUSTOMER_ID, SERVICE_CENTER_ID) REFERENCES CUSTOMER(CUSTOMER_ID, SERVICE_CENTER_ID)  ON DELETE CASCADE, ")
     .append("FOREIGN KEY (CAR_ID) REFERENCES CAR(CAR_ID) ON DELETE CASCADE, ")
     .append("PRIMARY KEY (VIN) )")
@@ -177,30 +177,6 @@ public class CreateTableController {
     .append("CHECK (START_DATE < END_DATE), ")
     .append("FOREIGN KEY (EMPLOYEE_ID, SERVICE_CENTER_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID, SERVICE_CENTER_ID) ON DELETE CASCADE, ")
     .append("PRIMARY KEY (LEAVE_ID, SERVICE_CENTER_ID) )")
-    .toString();
-
-    jdbcTemplate.execute(
-      sql
-    );
-
-    return true;
-  }
-
-  @GetMapping("/create/swap_slot")
-  public boolean CreateSwapSlot() {
-    String sql = new StringBuilder()
-    .append("CREATE TABLE SWAP_SLOT ( ")
-    .append("REQUESTOR_EMPLOYEE_ID INTEGER, ")
-    .append("REQUESTOR_SERVICE_CENTER_ID INTEGER, ")
-    .append("REQUESTED_EMPLOYEE_ID INTEGER, ")
-    .append("REQUESTED_SERVICE_CENTER_ID INTEGER, ")
-    .append("TIME_SLOT_GIVE DATE NOT NULL, ")
-    .append("TIME_SLOT_TAKE DATE NOT NULL, ")
-    .append("STATUS INTEGER NOT NULL, ")
-    .append("CHECK (STATUS IN (0,1,2)), ")
-    .append("FOREIGN KEY (REQUESTOR_EMPLOYEE_ID, REQUESTOR_SERVICE_CENTER_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID, SERVICE_CENTER_ID) ON DELETE CASCADE, ")
-    .append("FOREIGN KEY (REQUESTED_EMPLOYEE_ID, REQUESTED_SERVICE_CENTER_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID, SERVICE_CENTER_ID) ON DELETE CASCADE, ")
-    .append("PRIMARY KEY (REQUESTOR_EMPLOYEE_ID, REQUESTOR_SERVICE_CENTER_ID, REQUESTED_EMPLOYEE_ID, REQUESTED_SERVICE_CENTER_ID) )")
     .toString();
 
     jdbcTemplate.execute(
@@ -369,6 +345,32 @@ public class CreateTableController {
     .append("FOREIGN KEY (VIN) REFERENCES CUSTOMER_CAR(VIN), ")
     .append("FOREIGN KEY (INVOICE_ID) REFERENCES INVOICE(INVOICE_ID), ")
     .append("PRIMARY KEY (SERVICE_ID) )")
+    .toString();
+
+    jdbcTemplate.execute(
+      sql
+    );
+
+    return true;
+  }
+
+  @GetMapping("/create/swap_slot")
+  public boolean CreateSwapSlot() {
+    String sql = new StringBuilder()
+    .append("CREATE TABLE SWAP_SLOT ( ")
+    .append("REQUESTOR_EMPLOYEE_ID INTEGER, ")
+    .append("REQUESTOR_SERVICE_CENTER_ID INTEGER, ")
+    .append("REQUESTED_EMPLOYEE_ID INTEGER, ")
+    .append("REQUESTED_SERVICE_CENTER_ID INTEGER, ")
+    .append("INVOICE_GIVE INTEGER, ")
+    .append("INVOICE_TAKE INTEGER, ")
+    .append("STATUS INTEGER NOT NULL, ")
+    .append("CHECK (STATUS IN (0,1,2)), ")
+    .append("FOREIGN KEY (REQUESTOR_EMPLOYEE_ID, REQUESTOR_SERVICE_CENTER_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID, SERVICE_CENTER_ID) ON DELETE CASCADE, ")
+    .append("FOREIGN KEY (REQUESTED_EMPLOYEE_ID, REQUESTED_SERVICE_CENTER_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID, SERVICE_CENTER_ID) ON DELETE CASCADE, ")
+    .append("FOREIGN KEY (INVOICE_GIVE) REFERENCES INVOICE(INVOICE_ID), ")
+    .append("FOREIGN KEY (INVOICE_TAKE) REFERENCES INVOICE(INVOICE_ID), ")
+    .append("PRIMARY KEY (REQUESTOR_EMPLOYEE_ID, REQUESTOR_SERVICE_CENTER_ID, REQUESTED_EMPLOYEE_ID, REQUESTED_SERVICE_CENTER_ID) )")
     .toString();
 
     jdbcTemplate.execute(

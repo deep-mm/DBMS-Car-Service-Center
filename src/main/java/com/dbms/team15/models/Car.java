@@ -6,13 +6,13 @@ public class Car {
   private String MANUFACTURER;
   private int YEAR;
 
-  public Car() {}
+  public Car() {
+  }
 
   // Create constructor
-  public Car(int CAR_ID, String MANUFACTURER, int YEAR) {
+  public Car(int CAR_ID, String MANUFACTURER) {
     this.CAR_ID = CAR_ID;
     this.MANUFACTURER = MANUFACTURER;
-    this.YEAR = YEAR;
   }
 
   // Create getters
@@ -24,10 +24,6 @@ public class Car {
     return MANUFACTURER;
   }
 
-  public int getYEAR() {
-    return YEAR;
-  }
-
   // Create setters
   public void setCAR_ID(int CAR_ID) {
     this.CAR_ID = CAR_ID;
@@ -37,23 +33,9 @@ public class Car {
     this.MANUFACTURER = MANUFACTURER;
   }
 
-  public void setYEAR(int YEAR) {
-    this.YEAR = YEAR;
-  }
-
-  //To String
+  // To String
   @Override
   public String toString() {
-    return (
-      "Car{" +
-      "CAR_ID=" +
-      CAR_ID +
-      ", MANUFACTURER='" +
-      MANUFACTURER +
-      '\'' +
-      ", YEAR=" +
-      YEAR +
-      '}'
-    );
+    return "Car [CAR_ID=" + CAR_ID + ", MANUFACTURER=" + MANUFACTURER + "]";
   }
 }

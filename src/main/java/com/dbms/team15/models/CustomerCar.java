@@ -8,23 +8,26 @@ public class CustomerCar {
   private int CUSTOMER_ID;
   private int SERVICE_CENTER_ID;
   private int CAR_ID;
+  private int YEAR;
 
-  public CustomerCar() {}
+  public CustomerCar() {
+  }
 
   public CustomerCar(
-    int VIN,
-    double MILEAGE,
-    int LAST_SCHEDULED_MAINTENANCE,
-    int CUSTOMER_ID,
-    int SERVICE_CENTER_ID,
-    int CAR_ID
-  ) {
+      int VIN,
+      double MILEAGE,
+      int LAST_SCHEDULED_MAINTENANCE,
+      int CUSTOMER_ID,
+      int SERVICE_CENTER_ID,
+      int CAR_ID,
+      int YEAR) {
     this.VIN = VIN;
     this.MILEAGE = MILEAGE;
     this.LAST_SCHEDULED_MAINTENANCE = LAST_SCHEDULED_MAINTENANCE;
     this.CUSTOMER_ID = CUSTOMER_ID;
     this.SERVICE_CENTER_ID = SERVICE_CENTER_ID;
     this.CAR_ID = CAR_ID;
+    this.YEAR = YEAR;
   }
 
   public int getVIN() {
@@ -51,6 +54,10 @@ public class CustomerCar {
     return CAR_ID;
   }
 
+  public int getYEAR() {
+    return YEAR;
+  }
+
   public void setVIN(int VIN) {
     this.VIN = VIN;
   }
@@ -75,24 +82,15 @@ public class CustomerCar {
     this.CAR_ID = CAR_ID;
   }
 
-  //To String
+  public void setYEAR(int YEAR) {
+    this.YEAR = YEAR;
+  }
+
+  // To String
   @Override
   public String toString() {
-    return (
-      "CustomerCar{" +
-      "VIN=" +
-      VIN +
-      ", MILEAGE=" +
-      MILEAGE +
-      ", LAST_SCHEDULED_MAINTENANCE=" +
-      LAST_SCHEDULED_MAINTENANCE +
-      ", CUSTOMER_ID=" +
-      CUSTOMER_ID +
-      ", SERVICE_CENTER_ID=" +
-      SERVICE_CENTER_ID +
-      ", CAR_ID=" +
-      CAR_ID +
-      '}'
-    );
+    return "CustomerCar [VIN=" + VIN + ", MILEAGE=" + MILEAGE + ", LAST_SCHEDULED_MAINTENANCE="
+        + LAST_SCHEDULED_MAINTENANCE + ", CUSTOMER_ID=" + CUSTOMER_ID + ", SERVICE_CENTER_ID=" + SERVICE_CENTER_ID
+        + ", CAR_ID=" + CAR_ID + ", YEAR=" + YEAR + "]";
   }
 }
