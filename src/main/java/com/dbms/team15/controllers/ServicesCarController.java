@@ -50,7 +50,7 @@ public class ServicesCarController {
     }
 
     @GetMapping("/api/servicesCar/{id}/{car_id}")
-    public ServicesCar getServicesCarByName(@PathVariable int id){
+    public ServicesCar getServicesCarByName(@PathVariable int id, @PathVariable int car_id){
         String sql = "SELECT * FROM SERVICES_CAR WHERE ID = " + id + " AND CAR_ID = " + car_id;
 
         List<ServicesCar> servicesCars = jdbcTemplate.query(

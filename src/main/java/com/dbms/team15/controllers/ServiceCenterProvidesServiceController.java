@@ -25,67 +25,67 @@ public class ServiceCenterProvidesServiceController {
   public List<ServiceCenterProvidesService> getServiceCenterProvidesService() {
     String sql = "SELECT * FROM SERVICE_CENTER_PROVIDES_SERVICE";
 
-    List<ServiceCenter> serviceCenters = jdbcTemplate.query(
+    List<ServiceCenterProvidesService> serviceCenterProvidesServices = jdbcTemplate.query(
       sql,
-      BeanPropertyRowMapper.newInstance(ServiceCenter.class)
+      BeanPropertyRowMapper.newInstance(ServiceCenterProvidesService.class)
     );
 
-    serviceCenters.forEach(System.out::println);
-    return serviceCenters;
+    serviceCenterProvidesServices.forEach(System.out::println);
+    return serviceCenterProvidesServices;
   }
 
-  @PostMapping("/api/serviceCenter")
-  public boolean addServiceCenter(@RequestBody ServiceCenter serviceCenter) {
+  @PostMapping("/api/serviceCenterProvidesService")
+  public boolean addServiceCenterProvidesService(@RequestBody ServiceCenterProvidesService serviceCenterProvidesService) {
     String sql =
-      "INSERT INTO SERVICE_CENTER (SERVICE_CENTER_ID, ADDRESS, TELEPHONE_NO, OPERATIONAL_STATUS, WEEKEND_WORKING) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE (SERVICE_CENTER_ID, ID, CAR_ID, PRICE) VALUES (?, ?, ?, ?)";
 
     jdbcTemplate.update(
       sql,
-      serviceCenter.getSERVICE_CENTER_ID(),
-      serviceCenter.getADDRESS(),
-      serviceCenter.getTELEPHONE_NO(),
-      serviceCenter.getOPERATIONAL_STATUS(),
-      serviceCenter.getWEEKEND_WORKING()
+      serviceCenterProvidesService.getSERVICE_CENTER_ID(),
+      serviceCenterProvidesService.getID(),
+      serviceCenterProvidesService.getCAR_ID(),
+      serviceCenterProvidesService.getPRICE(),
     );
 
     return true;
   }
 
-  @GetMapping("/api/serviceCenter/{id}")
-  public ServiceCenter getServiceCenterByName(@PathVariable int id) {
-    String sql = "SELECT * FROM SERVICE_CENTER WHERE SERVICE_CENTER_ID = " + id;
+  @GetMapping("/api/serviceCenterProvidesService/{id}/{service_center_id}/{car_id}")
+  public ServiceCenterProvidesService getServiceCenterProvidesServiceByName(@PathVariable int id, @PathVariable int service_center_id, @PathVariable int car_id) {
+    String sql = "SELECT * FROM SERVICE_CENTER_PROVIDES_SERVICE WHERE SERVICE_CENTER_ID = " + service_center_id + " AND ID = " + id + " AND CAR_ID = " + car_id;
 
-    List<ServiceCenter> serviceCenters = jdbcTemplate.query(
+    List<ServiceCenterProvidesService> serviceCenterProvidesServices = jdbcTemplate.query(
       sql,
-      BeanPropertyRowMapper.newInstance(ServiceCenter.class)
+      BeanPropertyRowMapper.newInstance(ServiceCenterProvidesService.class)
     );
 
-    return serviceCenters.get(0);
+    return serviceCenterProvidesServices.get(0);
   }
 
-  @PutMapping("/api/serviceCenter/{id}")
-  public boolean updateServiceCenter(
+  @PutMapping("/api/serviceCenterProvidesService/{id}/{service_center_id}/{car_id}")
+  public boolean updateServiceCenterProvidesService(
     @PathVariable int id,
-    @RequestBody ServiceCenter serviceCenter
+    @PathVariable int service_center_id, 
+    @PathVariable int car_id,
+    @RequestBody ServiceCenterProvidesService serviceCenterProvidesService
   ) {
     String sql =
-      "UPDATE SERVICE_CENTER SET ADDRESS = ?, TELEPHONE_NO = ?, OPERATIONAL_STATUS = ?, WEEKEND_WORKING = ? WHERE SERVICE_CENTER_ID = ?";
+      "UPDATE SERVICE_CENTER_PROVIDES_SERVICE SET PRICE = ? WHERE ID = ? AND SERVICE_CENTER_ID = ? AND CAR_ID = ?";
 
     jdbcTemplate.update(
       sql,
-      serviceCenter.getADDRESS(),
-      serviceCenter.getTELEPHONE_NO(),
-      serviceCenter.getOPERATIONAL_STATUS(),
-      serviceCenter.getWEEKEND_WORKING(),
-      id
+      serviceCenter.getPRICE(),
+      id,
+      service_center_id,
+      car_id
     );
 
     return true;
   }
 
-  @DeleteMapping("/api/serviceCenter/{id}")
-  public boolean deleteServiceCenter(@PathVariable int id) {
-    String sql = "DELETE FROM SERVICE_CENTER WHERE SERVICE_CENTER_ID = " + id;
+  @DeleteMapping("/api/serviceCenterProvidesService/{id}/{service_center_id}/{car_id}")
+  public boolean deleteServiceCenterProvidesService(@PathVariable int id, @PathVariable int service_center_id, @PathVariable int car_id) {
+    String sql = "DELETE FROM SERVICE_CENTER WHERE SERVICE_CENTER_ID = " + service_center_id + " AND ID = " + id + " AND CAR_ID = " + car_id;
 
     jdbcTemplate.update(sql);
 
