@@ -37,7 +37,7 @@ public class ServiceCenterController {
   @PostMapping("/api/serviceCenter")
   public boolean addServiceCenter(@RequestBody ServiceCenter serviceCenter) {
     String sql =
-      "INSERT INTO SERVICE_CENTER (SERVICE_CENTER_ID, ADDRESS, TELEPHONE_NO, OPERATIONAL_STATUS, WEEKEND_WORKING) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO SERVICE_CENTER (SERVICE_CENTER_ID, ADDRESS, TELEPHONE_NO, OPERATIONAL_STATUS, WEEKEND_WORKING, MIN_WAGE, MAX_WAGE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     jdbcTemplate.update(
       sql,
@@ -45,7 +45,9 @@ public class ServiceCenterController {
       serviceCenter.getADDRESS(),
       serviceCenter.getTELEPHONE_NO(),
       serviceCenter.getOPERATIONAL_STATUS(),
-      serviceCenter.getWEEKEND_WORKING()
+      serviceCenter.getWEEKEND_WORKING(),
+      serviceCenter.getMIN_WAGE(),
+      serviceCenter.getMAX_WAGE()
     );
 
     return true;
@@ -69,7 +71,7 @@ public class ServiceCenterController {
     @RequestBody ServiceCenter serviceCenter
   ) {
     String sql =
-      "UPDATE SERVICE_CENTER SET ADDRESS = ?, TELEPHONE_NO = ?, OPERATIONAL_STATUS = ?, WEEKEND_WORKING = ? WHERE SERVICE_CENTER_ID = ?";
+      "UPDATE SERVICE_CENTER SET ADDRESS = ?, TELEPHONE_NO = ?, OPERATIONAL_STATUS = ?, WEEKEND_WORKING = ?, MIN_WAGE = ?, MAX_WAGE = ? WHERE SERVICE_CENTER_ID = ?";
 
     jdbcTemplate.update(
       sql,
@@ -77,6 +79,8 @@ public class ServiceCenterController {
       serviceCenter.getTELEPHONE_NO(),
       serviceCenter.getOPERATIONAL_STATUS(),
       serviceCenter.getWEEKEND_WORKING(),
+      serviceCenter.getMIN_WAGE(),
+      serviceCenter.getMAX_WAGE(),
       id
     );
 

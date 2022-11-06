@@ -2,12 +2,12 @@ package com.dbms.team15.models;
 
 public class CustomerCar {
 
+  private int CAR_ID;
   private int VIN;
   private double MILEAGE;
   private int LAST_SCHEDULED_MAINTENANCE;
   private int CUSTOMER_ID;
   private int SERVICE_CENTER_ID;
-  private int CAR_ID;
   private int YEAR;
 
   public CustomerCar() {
