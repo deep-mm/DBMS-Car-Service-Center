@@ -34,6 +34,18 @@ public class CustomerController {
         return customers;
     }
 
+    @GetMapping("/api/customer/unpaidInvoices/{service_center_id}")
+    public List<Customer> getCustomersWithUnpaidInvoices(@PathVariable int service_center_id) {
+        String sql = "SELECT UNIQUE C.* FROM CUSTOMER C, INVOICE I, SERVICE_EVENT SE, CUSTOMER_CAR CC WHERE I.invoice_id = SE.invoice_id AND SE.vin = CC.vin AND CC.customer_id = C.customer_id AND I.invoice_status = 0 AND CC.service_center_id = C.service_center_id AND C.service_center_id = " + service_center_id;
+
+        List<Customer> customers = jdbcTemplate.query(
+                sql,
+                BeanPropertyRowMapper.newInstance(Customer.class));
+
+        customers.forEach(System.out::println);
+        return customers;
+    }
+
     @PostMapping("/api/customer")
     public boolean addCustomer(@RequestBody Customer customer) {
         String sql = "INSERT INTO CUSTOMER (CUSTOMER_ID, SERVICE_CENTER_ID, FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, USERNAME, PASSWORD, STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

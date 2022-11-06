@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Employee } from '../models/Employee';
 import { EmployeeService } from '../services/employee/employee.service';
-import {Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 
 @Component({
   selector: 'app-add-employee',
@@ -32,11 +32,14 @@ export class AddEmployeeComponent implements OnInit {
   constructor(public router: Router, public _apiService: EmployeeService, private _snackBar: MatSnackBar, private _location: Location) { }
 
   ngOnInit(): void {
+    this.roles = EmployeeService.roles;
   }
 
   submitForm() {
     this.loading = true;
-    this.employee.service_center_id = this._apiService.serviceCenterId;
+    this.employee.service_CENTER_ID = EmployeeService.serviceCenterId;
+    let datePipe = new DatePipe('en-US');
+    this.employee.start_DATE = datePipe.transform(this.employee.start_DATE, 'dd-MMM-yyyy')!.toString();
     console.log(this.employee);
     this._apiService.addEmployee(this.employee).subscribe(
       (data) => {

@@ -13,7 +13,7 @@ export class CustomerService {
 
   private baseUrl = environment.apiBaseUrl + "/customer";
   private carApiUrl = environment.apiBaseUrl + "/car";
-  public serviceCenterId: number = 0;
+  static serviceCenterId: any;
   static selectedCustomer: any;
 
   httpOptions = {
@@ -25,7 +25,7 @@ export class CustomerService {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
   public getCustomersByServiceCenterId(): Observable<Customer[]> {
-    return this.http.get(`${this.baseUrl}/${this.serviceCenterId}`).pipe(
+    return this.http.get(`${this.baseUrl}/${CustomerService.serviceCenterId}`).pipe(
       map((json: any) => {
         const customers: Customer[] = [];
         for (const customer of json) {
@@ -37,7 +37,7 @@ export class CustomerService {
   }
 
   public getCustomersWithUnpaidInvoices(): Observable<Customer[]> {
-    return this.http.get(`${this.baseUrl}/unpaidInvoices/${this.serviceCenterId}`).pipe(
+    return this.http.get(`${this.baseUrl}/unpaidInvoices/${CustomerService.serviceCenterId}`).pipe(
       map((json: any) => {
         const customers: Customer[] = [];
         for (const customer of json) {
@@ -56,14 +56,14 @@ export class CustomerService {
   }
 
   public updateCustomer(customer: Customer): Observable<boolean> {
-    return this.http.put<any>(`${this.baseUrl}/${customer.customer_id}`, customer).pipe(map((json: boolean) => {
+    return this.http.put<any>(`${this.baseUrl}/${customer.customer_ID}`, customer).pipe(map((json: boolean) => {
       return json;
     })
     );
   }
 
-  public deleteCustomer(customerId: number): Observable<boolean> {
-    return this.http.delete<any>(`${this.baseUrl}/${customerId}`).pipe(map((json: boolean) => {
+  public deleteCustomer(serviceCenterId: number,customerId: number): Observable<boolean> {
+    return this.http.delete<any>(`${this.baseUrl}/${serviceCenterId}/${customerId}`).pipe(map((json: boolean) => {
       return json;
     })
     );

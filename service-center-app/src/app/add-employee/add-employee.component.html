@@ -6,7 +6,7 @@
         <div>
             <mat-label>Employee ID</mat-label><br>
             <mat-form-field appearance="outline">
-                <input matInput type="text" required #EmployeeID="ngModel" [(ngModel)]="employee.employee_id"
+                <input matInput type="text" required #EmployeeID="ngModel" [(ngModel)]="employee.employee_ID"
                     name="EmployeeID" type="number" min="0"
                     [class.is-invalid]="EmployeeID.invalid && (EmployeeID.touched || EmployeeID.dirty)">
                 <mat-error *ngIf="EmployeeID.invalid && (EmployeeID.touched || EmployeeID.dirty)">
@@ -40,7 +40,7 @@
         <div style="margin-top: 10px;">
             <mat-label>Start Date</mat-label><br>
             <mat-form-field appearance="outline">
-                <input matInput #StartDate="ngModel" [(ngModel)]="employee.start_date" name="StartDate" required
+                <input matInput #StartDate="ngModel" [(ngModel)]="employee.start_DATE" name="StartDate" required
                     type="date" [class.is-invalid]="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
                 <mat-error *ngIf="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
                     Enter a valid Start Date
@@ -51,7 +51,7 @@
         <div style="margin-top: 10px;">
             <mat-label>Role</mat-label><br>
             <mat-select [(ngModel)]="employee.role" name="role">
-                <mat-option *ngFor="let role of roles" [value]="role">
+                <mat-option *ngFor="let role of roles" [value]="roles.indexOf(role)">
                     {{role}}
                 </mat-option>
             </mat-select>
@@ -101,7 +101,7 @@
             </mat-form-field>
         </div>
 
-        <button mat-raised-button (click)="submitForm()" [disabled]="employeeForm.form.invalid"
+        <button mat-raised-button (click)="submitForm()" 
             style="margin-top: 50px;">Submit</button>
     </form>
 </div>

@@ -27,6 +27,8 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
 import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.component';
+import { ManagerHomeComponent } from './manager-home/manager-home.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.compo
     AddEmployeeComponent,
     EmployeeDetailsComponent,
     AddServiceCategoryComponent,
-    ScheduleBundleComponent
+    ScheduleBundleComponent,
+    ManagerHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.compo
     MatIconModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

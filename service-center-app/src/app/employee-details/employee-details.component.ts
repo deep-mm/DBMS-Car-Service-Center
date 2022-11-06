@@ -29,17 +29,6 @@ export class EmployeeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this._apiService.getServiceCenterManager().subscribe(
-      (data) => {
-        console.log(data);
-        this.employee = data;
-        this.loading = false;
-      },
-      (err) => {
-        console.log(err);
-        this.loading = false;
-      }
-    );
   }
 
 }

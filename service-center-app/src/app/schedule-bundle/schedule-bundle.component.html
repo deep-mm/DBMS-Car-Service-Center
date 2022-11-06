@@ -12,10 +12,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let scheduleBundle of scheduleBundles" class="table-row-item">
-            <td>{{scheduleBundle.schedule_bundle_id}}</td>
+            <td>{{scheduleBundle.schedule_BUNDLE_ID}}</td>
             <td>{{scheduleBundle.name}}</td>
             <td>
-                <button mat-raised-button color="warn" (click)="deleteScheduleBundle(scheduleBundle.schedule_bundle_id)" style="margin-left: 5px;">Delete</button>
+                <button mat-raised-button color="warn" (click)="deleteScheduleBundle(scheduleBundle.schedule_BUNDLE_ID)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>
     </tbody>

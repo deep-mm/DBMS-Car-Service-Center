@@ -41,7 +41,7 @@ export class ServiceCategoryService {
   }
 
   public updateServiceCategory(serviceCategory: ServiceCategory): Observable<boolean> {
-    return this.http.put<any>(`${this.baseUrl}/${serviceCategory.category_id}`, serviceCategory).pipe(map((json: boolean) => {
+    return this.http.put<any>(`${this.baseUrl}/${serviceCategory.category_ID}`, serviceCategory).pipe(map((json: boolean) => {
       return json;
     })
     );

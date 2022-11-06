@@ -34,6 +34,14 @@ export class ServiceCenterService {
     );
   }
 
+  public getServiceCenterById(serviceCenterId: number): Observable<ServiceCenter> {
+    return this.http.get(`${this.baseUrl}/${serviceCenterId}`).pipe(
+      map((json: any) => {
+        return new ServiceCenter(json);
+      })
+    );
+  }
+
   public addServiceCenter(serviceCenter: ServiceCenter): Observable<boolean> {
     return this.http.post<any>(`${this.baseUrl}`, serviceCenter).pipe(map((json: boolean) => {
       return json;

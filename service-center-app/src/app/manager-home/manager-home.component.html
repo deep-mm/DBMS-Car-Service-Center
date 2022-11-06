@@ -1,0 +1,77 @@
+<div style="margin: 20px;">
+<h2>Welcome Manager: {{manager.name}}</h2>
+<h3><b>Service Center Details</b></h3>
+
+<h4>Service Center ID: {{serviceCenter.service_CENTER_ID}}</h4>
+<h4>Service Center Address: {{serviceCenter.address}}</h4>
+<h4>Service Center Telephone Number: {{serviceCenter.telephone_NO}}</h4>
+<h4>Service Center Weekend Min Wage: {{serviceCenter.min_WAGE}}</h4>
+<h4>Service Center Weekend Max Wage: {{serviceCenter.max_WAGE}}</h4>
+<h4>Service Center Operational Status: {{serviceCenter.operational_STATUS==1?'Operational':'Non-Operational'}}</h4>
+<h4>Service Center Weekend Working: 
+    <mat-slide-toggle
+          [checked]="checkbox"
+          (change)="checkbox = $event.checked;updateServiceCenter()">
+        Yes
+    </mat-slide-toggle>
+</h4>
+
+<h3><b>Service Center Employees</b></h3>
+
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Employee ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">Role</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees" class="table-row-item">
+            <td>{{employee.employee_ID}}</td>
+            <td>{{employee.name}}</td>
+            <td>{{employee.address}}</td>
+            <td>{{employee.start_DATE}}</td>
+            <td>{{employee.role==2?'Receptionist':'Mechanic'}}</td>
+            <td>{{employee.email}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.username}}</td>
+            <td>{{employee.password}}</td>
+            <td>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button mat-raised-button (click)="addEmployee()">Add Employee</button><br><br>
+
+<h3><b>Services</b></h3>
+
+<table class="styled-table">
+    <form #serviceCenterForm='ngForm'>
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Service Name</th>
+            <th *ngFor="let car of cars" class="table-row-item">{{car.manufacturer}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of services; let i = index; trackBy:trackByIndex;" class="table-row-item">
+            <td>{{service.service_NAME}}</td>
+            <td *ngFor="let car of cars; let j = index; trackBy:trackByIndex;" class="table-row-item">
+                <mat-form-field appearance="outline">
+                    <input matInput #ServicePrice="ngModel"
+                        [(ngModel)]="serviceCenterProvidesService[getIndex(service,car)].price" name="ServicePrice" required type="number">
+                </mat-form-field>
+            </td>
+        </tr>
+    </tbody>
+</form>
+</table>
+</div>

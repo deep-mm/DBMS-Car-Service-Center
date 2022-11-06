@@ -66,6 +66,17 @@ public class EmployeeController {
 		return employees.get(0);
 	}
 
+	@GetMapping("/api/employee/manager/{username}")
+	public Employee getEmployeeByUsername(@PathVariable String username) {
+		String sql = "SELECT * FROM EMPLOYEE WHERE USERNAME = '" + username + "'";
+
+		List<Employee> employees = jdbcTemplate.query(
+				sql,
+				BeanPropertyRowMapper.newInstance(Employee.class));
+
+		return employees.get(0);
+	}
+
 	@PutMapping("/api/employee/{service_center_id}/{id}")
 	public boolean updateEmployee(
 			@PathVariable int id,

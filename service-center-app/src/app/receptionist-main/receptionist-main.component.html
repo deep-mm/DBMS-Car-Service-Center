@@ -2,6 +2,7 @@
 
 <button mat-raised-button style="margin-left: 20px;" (click)="addCustomer()">Add Customer</button><br><br>
 
+<div style="margin: 20px;">
 <mat-checkbox [(ngModel)]="filter" (ngModelChange)="filterCustomers()">Filter: Customers with unpaid invoices</mat-checkbox>
 <table class="styled-table">
     <thead class="thead-light">
@@ -19,17 +20,18 @@
     </thead>
     <tbody>
         <tr *ngFor="let customer of customers" class="table-row-item">
-            <td>{{customer.customer_id}}</td>
-            <td>{{customer.first_name}}</td>
-            <td>{{customer.last_name}}</td>
+            <td>{{customer.customer_ID}}</td>
+            <td>{{customer.first_NAME}}</td>
+            <td>{{customer.last_NAME}}</td>
             <td>{{customer.email}}</td>
             <td>{{customer.address}}</td>
             <td>{{customer.username}}</td>
             <td>{{customer.password}}</td>
             <td>{{customer.status==1?'Active':'Inactive'}}</td>
             <td>
-                <button mat-raised-button color="warn" (click)="deleteCustomer(customer.customer_id)" style="margin-left: 5px;">Delete</button>
+                <button mat-raised-button color="warn" (click)="deleteCustomer(customer.service_CENTER_ID, customer.customer_ID)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>
     </tbody>
 </table>
+</div>

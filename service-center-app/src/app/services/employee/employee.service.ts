@@ -11,7 +11,9 @@ import { environment } from 'src/environments/environment';
 export class EmployeeService {
 
   private baseUrl = environment.apiBaseUrl + "/employee";
-  public serviceCenterId: number = 0;
+  static serviceCenterId: any;
+  static managerUsername: any;
+  static roles: any;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,11 +21,10 @@ export class EmployeeService {
     })
   };
 
-
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
-  public getEmployees(): Observable<Employee[]> {
-    return this.http.get(`${this.baseUrl}`).pipe(
+  public getEmployeesByServiceCenter(serviceCenterId: number): Observable<Employee[]> {
+    return this.http.get(`${this.baseUrl}/${serviceCenterId}`).pipe(
       map((json: any) => {
         const employees: Employee[] = [];
         for (const employee of json) {
@@ -34,8 +35,8 @@ export class EmployeeService {
     );
   }
 
-  public getServiceCenterManager(): Observable<Employee> {
-    return this.http.get(`${this.baseUrl}/manager/${this.serviceCenterId}`).pipe(
+  public getManager(): Observable<Employee> {
+    return this.http.get(`${this.baseUrl}/manager/${EmployeeService.managerUsername}`).pipe(
       map((json: any) => {
         return new Employee(json);
       })
@@ -50,7 +51,7 @@ export class EmployeeService {
   }
 
   public updateEmployee(employee: Employee): Observable<boolean> {
-    return this.http.put<any>(`${this.baseUrl}/${employee.employee_id}`, employee).pipe(map((json: boolean) => {
+    return this.http.put<any>(`${this.baseUrl}/${employee.employee_ID}`, employee).pipe(map((json: boolean) => {
       return json;
     })
     );

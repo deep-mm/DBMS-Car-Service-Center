@@ -12,10 +12,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let serviceCategory of serviceCategories" class="table-row-item">
-            <td>{{serviceCategory.category_id}}</td>
-            <td>{{serviceCategory.category_name}}</td>
+            <td>{{serviceCategory.category_ID}}</td>
+            <td>{{serviceCategory.category_NAME}}</td>
             <td>
-                <button mat-raised-button color="warn" (click)="deleteServiceCategory(serviceCategory.category_id)" style="margin-left: 5px;">Delete</button>
+                <button mat-raised-button color="warn" (click)="deleteServiceCategory(serviceCategory.category_ID)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>
     </tbody>

@@ -41,7 +41,7 @@ export class ScheduleBundleService {
   }
 
   public updateScheduleBundle(scheduleBundle: ScheduleBundle): Observable<boolean> {
-    return this.http.put<any>(`${this.baseUrl}/${scheduleBundle.schedule_bundle_id}`, scheduleBundle).pipe(map((json: boolean) => {
+    return this.http.put<any>(`${this.baseUrl}/${scheduleBundle.schedule_BUNDLE_ID}`, scheduleBundle).pipe(map((json: boolean) => {
       return json;
     })
     );

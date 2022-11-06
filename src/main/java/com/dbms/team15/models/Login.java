@@ -6,6 +6,8 @@ public class Login {
     private String password;
     private String role;
 
+    public Login() {}
+
     //Constructor
     public Login(String username, String password, String role) {
         this.username = username;

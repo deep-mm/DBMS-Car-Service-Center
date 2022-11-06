@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
 import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
 import { AdminMainComponent } from './admin-main/admin-main.component';
 import { LoginComponent } from './login/login.component';
+import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { ServiceCategory } from './models/ServiceCategory';
 import { ReceptionistMainComponent } from './receptionist-main/receptionist-main.component';
 import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.component';
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'serviceCategories', component: ServiceCategoryComponent },
   { path: 'serviceCategory/new', component: AddServiceCategoryComponent },
   { path: 'scheduleBundles', component: ScheduleBundleComponent },
+  { path: 'managerHomePage', component: ManagerHomeComponent },
+  { path: 'employee/new', component: AddEmployeeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

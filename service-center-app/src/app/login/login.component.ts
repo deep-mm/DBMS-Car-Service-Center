@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Login } from '../models/Login';
+import { CustomerService } from '../services/customer/customer.service';
+import { EmployeeService } from '../services/employee/employee.service';
 import { LoginService } from '../services/login-service/login.service';
 
 @Component({
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   });
   loading: boolean = false;
 
-  constructor(public router: Router, public _apiService: LoginService, private _snackBar: MatSnackBar) { }
+  constructor(public router: Router, public _apiService: LoginService, private _snackBar: MatSnackBar, public employeeApiService: EmployeeService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +37,14 @@ export class LoginComponent implements OnInit {
         }
         else if (data.role == "customer") {
           this.router.navigate(['customerHomePage']);
+        }
+        else if (data.role == "Employee_1") {
+          EmployeeService.managerUsername = data.username;
+          this.router.navigate(['managerHomePage']);
+        }
+        else if (data.role == "Employee_2") {
+          EmployeeService.managerUsername = data.username;
+          this.router.navigate(['receptionistHomePage']);
         }
         else {
           this._snackBar.open("Login Failed", "OK");

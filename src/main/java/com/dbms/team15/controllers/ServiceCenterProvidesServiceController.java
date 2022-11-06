@@ -34,6 +34,19 @@ public class ServiceCenterProvidesServiceController {
     return serviceCenterProvidesServices;
   }
 
+  @GetMapping("/api/serviceCenterProvidesService/{service_center_id}")
+  public List<ServiceCenterProvidesService> getServiceCenterProvidesServiceByServiceCenterId(@PathVariable int service_center_id) {
+    String sql = "SELECT * FROM SERVICE_CENTER_PROVIDES_SERVICE WHERE SERVICE_CENTER_ID = " + service_center_id;
+
+    List<ServiceCenterProvidesService> serviceCenterProvidesServices = jdbcTemplate.query(
+      sql,
+      BeanPropertyRowMapper.newInstance(ServiceCenterProvidesService.class)
+    );
+
+    serviceCenterProvidesServices.forEach(System.out::println);
+    return serviceCenterProvidesServices;
+  }
+
   @PostMapping("/api/serviceCenterProvidesService")
   public boolean addServiceCenterProvidesService(@RequestBody ServiceCenterProvidesService serviceCenterProvidesService) {
     String sql =

@@ -6,7 +6,7 @@
             <mat-label>Service Category ID</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput type="text" required #ServiceCategoryID="ngModel"
-                    [(ngModel)]="serviceCategory.category_id" name="ServiceCategoryID" type="number" min="0"
+                    [(ngModel)]="serviceCategory.category_ID" name="ServiceCategoryID" type="number" min="0"
                     [class.is-invalid]="ServiceCategoryID.invalid && (ServiceCategoryID.touched || ServiceCategoryID.dirty)">
                 <mat-error *ngIf="ServiceCategoryID.invalid && (ServiceCategoryID.touched || ServiceCategoryID.dirty)">
                     Enter a valid service category id
@@ -18,7 +18,7 @@
             <mat-label>Service Category Name</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #ServiceCategoryName="ngModel"
-                    [(ngModel)]="serviceCategory.category_name" name="ServiceCategoryName" required type="text" maxlength="250"
+                    [(ngModel)]="serviceCategory.category_NAME" name="ServiceCategoryName" required type="text" maxlength="250"
                     [class.is-invalid]="ServiceCategoryName.invalid && (ServiceCategoryName.touched || ServiceCategoryName.dirty)">
                 <mat-error *ngIf="ServiceCategoryName.invalid && (ServiceCategoryName.touched || ServiceCategoryName.dirty)">
                     Enter a valid Service Category Name

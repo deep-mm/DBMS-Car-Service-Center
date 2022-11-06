@@ -36,7 +36,7 @@ export class ServiceCategoryComponent implements OnInit {
     this.loading = true;
     this._apiService.deleteServiceCategory(serviceCategoryId).subscribe((result: boolean) => {
       if (result) {
-        this.serviceCategories = this.serviceCategories.filter(category => category.category_id !== serviceCategoryId);
+        this.serviceCategories = this.serviceCategories.filter(category => category.category_ID !== serviceCategoryId);
         this._snackBar.open('Service category deleted successfully', 'Close', {
           duration: 2000,
         });

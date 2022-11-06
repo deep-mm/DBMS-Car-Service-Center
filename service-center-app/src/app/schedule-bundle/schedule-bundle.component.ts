@@ -36,7 +36,7 @@ export class ScheduleBundleComponent implements OnInit {
     this.loading = true;
     this._apiService.deleteScheduleBundle(scheduleBundleId).subscribe((result: boolean) => {
       if (result) {
-        this.scheduleBundles = this.scheduleBundles.filter(scheduleBundle => scheduleBundle.schedule_bundle_id !== scheduleBundleId);
+        this.scheduleBundles = this.scheduleBundles.filter(scheduleBundle => scheduleBundle.schedule_BUNDLE_ID !== scheduleBundleId);
         this._snackBar.open('Schedule bundle deleted successfully', 'Close', {
           duration: 2000,
         });
