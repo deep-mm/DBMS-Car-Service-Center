@@ -32,6 +32,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
 import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.component';
+import { AddLeaveComponent } from './add-leave/add-leave.component';
+import { AddSwapComponent } from './add-swap/add-swap.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.com
     ManagerHomeComponent,
     CustomerHomeComponent,
     MechanicHomeComponent,
-    AddCustomerCarComponent
+    AddCustomerCarComponent,
+    AddLeaveComponent,
+    AddSwapComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,43 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Leave</h2>
+    <form #leaveForm='ngForm'>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Leave ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #LeaveID="ngModel" [(ngModel)]="leave.leave_ID" name="LeaveID" required type="number"
+                    maxlength="50" [class.is-invalid]="LeaveID.invalid && (LeaveID.touched || LeaveID.dirty)">
+                <mat-error *ngIf="LeaveID.invalid && (LeaveID.touched || LeaveID.dirty)">
+                    Enter a valid ID
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Start Date</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #StartDate="ngModel" [(ngModel)]="leave.start_DATE" name="StartDate" required [max]="leave.end_DATE"
+                    type="date" maxlength="50"
+                    [class.is-invalid]="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
+                <mat-error *ngIf="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
+                    Enter a valid start date
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>End Date</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #EndDate="ngModel" [(ngModel)]="leave.end_DATE" name="EndDate" required type="date" [min]="leave.start_DATE"
+                    maxlength="50" [class.is-invalid]="EndDate.invalid && (EndDate.touched || EndDate.dirty)">
+                <mat-error *ngIf="EndDate.invalid && (EndDate.touched || EndDate.dirty)">
+                    Enter a valid end date
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="leaveForm.form.invalid"
+            style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

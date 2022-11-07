@@ -47,6 +47,18 @@ public class EmployeeController {
 		return schedules;
 	}
 
+	@GetMapping("/api/employee/mechanic/{service_center_id}")
+	public List<MechanicSchedule> getMechanicsSchedules(@PathVariable int service_center_id) {
+		String sql = "SELECT C.MANUFACTURER, SE.VIN, MIN(SE.START_TIME), MAX(SE.END_TIME), I.INVOICE_ID, SE.MECHANIC_ID FROM SERVICE S, CAR C, SERVICE_EVENT SE, CUSTOMER_CAR CC, INVOICE I WHERE SE.ID = S.ID AND SE.VIN = CC.VIN AND CC.CAR_ID = C.CAR_ID AND SE.INVOICE_ID = I.INVOICE_ID AND SE.SERVICE_CENTER_ID = " + service_center_id + " GROUP BY C.MANUFACTURER, SE.VIN, I.INVOICE_ID, SE.MECHANIC_ID";
+
+		List<MechanicSchedule> schedules = jdbcTemplate.query(
+				sql,
+				BeanPropertyRowMapper.newInstance(MechanicSchedule.class));
+
+		schedules.forEach(System.out::println);
+		return schedules;
+	}
+
 	@PostMapping("/api/employee")
 	public boolean addEmployee(@RequestBody Employee employee) {
 		String sql = "INSERT INTO EMPLOYEE (EMPLOYEE_ID, SERVICE_CENTER_ID, NAME, ADDRESS, START_DATE, ROLE, EMAIL, PHONE, USERNAME, PASSWORD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -23,4 +23,55 @@
             </tr>
         </tbody>
     </table>
+
+    <h2><strong>Leaves</strong></h2>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let leave of leaves">
+                <td>{{leave.start_DATE}}</td>
+                <td>{{leave.end_DATE}}</td>
+                <td>{{leave.status==0?'Pending':(leave.status==1?'Approved':'Rejected')}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button mat-raised-button (click)="applyLeave()">Apply Leave</button><br><br>
+
+    <h2><strong>Swap Slots</strong></h2>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th scope="col">Requested Mechanic ID</th>
+                <th scope="col">Requestor Mechanic ID</th>
+                <th scope="col">Invoice Number Give</th>
+                <th scope="col">Invoice Number Take</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let swap of swapSlots">
+                <td>{{swap.requested_employee_id}}</td>
+                <td>{{swap.requestor_employee_id}}</td>
+                <td>{{swap.invoice_give}}</td>
+                <td>{{swap.invoice_take}}</td>
+                <td>{{swap.status==0?'Pending':(swap.status==1?'Approved':'Rejected')}}</td>
+                <td *ngIf="swap.requested_employee_id == mechanic.employee_ID && swap.status==0">
+                    <button mat-raised-button (click)="approveSwap(swap, 1)">Approve</button>
+                    <button mat-raised-button (click)="approveSwap(swap, 2)" style="margin-left: 5px;">Reject</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button mat-raised-button (click)="applySwapSlot()">Request Swap</button><br><br>
 </div>

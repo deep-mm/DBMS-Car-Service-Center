@@ -7,16 +7,21 @@ public class MechanicSchedule {
     private String VIN;
     private String START_TIME;
     private String END_TIME;
+    private String INVOICE_ID;
+    private String MECHANIC_ID;
 
     public MechanicSchedule() {
     }
 
-    public MechanicSchedule(String SERVICE_NAME, String MANUFACTURER, String VIN, String START_TIME, String END_TIME) {
+    public MechanicSchedule(String SERVICE_NAME, String MANUFACTURER, String VIN, String START_TIME, String END_TIME,
+            String INVOICE_ID, String MECHANIC_ID) {
         this.SERVICE_NAME = SERVICE_NAME;
         this.MANUFACTURER = MANUFACTURER;
         this.VIN = VIN;
         this.START_TIME = START_TIME;
         this.END_TIME = END_TIME;
+        this.INVOICE_ID = INVOICE_ID;
+        this.MECHANIC_ID = MECHANIC_ID;
     }
 
     public String getSERVICE_NAME() {
@@ -39,6 +44,14 @@ public class MechanicSchedule {
         return END_TIME;
     }
 
+    public String getINVOICE_ID() {
+        return INVOICE_ID;
+    }
+
+    public String getMECHANIC_ID() {
+        return MECHANIC_ID;
+    }
+
     public void setSERVICE_NAME(String SERVICE_NAME) {
         this.SERVICE_NAME = SERVICE_NAME;
     }
@@ -59,10 +72,20 @@ public class MechanicSchedule {
         this.END_TIME = END_TIME;
     }
 
+    public void setINVOICE_ID(String INVOICE_ID) {
+        this.INVOICE_ID = INVOICE_ID;
+    }
+
+    public void setMECHANIC_ID(String MECHANIC_ID) {
+        this.MECHANIC_ID = MECHANIC_ID;
+    }
+
     @Override
     public String toString() {
-        return "MechanicSchedule{" + "SERVICE_NAME=" + SERVICE_NAME + ", MANUFACTURER=" + MANUFACTURER + ", VIN=" + VIN
-                + ", START_TIME=" + START_TIME + ", END_TIME=" + END_TIME + '}';
+        return "MechanicSchedule [END_TIME=" + END_TIME + ", INVOICE_ID=" +
+                INVOICE_ID + ", MANUFACTURER=" + MANUFACTURER + ", MECHANIC_ID=" +
+                MECHANIC_ID + ", SERVICE_NAME=" + SERVICE_NAME + ", START_TIME=" +
+                START_TIME + ", VIN=" + VIN + "]";
     }
 
 }

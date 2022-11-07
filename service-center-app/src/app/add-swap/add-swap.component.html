@@ -1,0 +1,33 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Swap</h2>
+    <form #leaveForm='ngForm'>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Invoice Give</mat-label><br>
+            <mat-form-field appearance="outline">
+                <select matNativeControl [(ngModel)]="swapSlot.invoice_give" name="invoice">
+                    <option value="" selected></option>
+                    <option *ngFor="let schedule of currentMechanicsSchedules; let i = index" [value]="schedule.invoice_ID">
+                        {{schedule.invoice_ID}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Invoice Request</mat-label><br>
+            <mat-form-field appearance="outline">
+                <select matNativeControl [(ngModel)]="swapSlot.invoice_take" name="invoice">
+                    <option value="" selected></option>
+                    <option *ngFor="let schedule of otherMechanicSchedule; let i = index" [value]="schedule.invoice_ID">
+                        Mechanic: {{schedule.mechanic_ID}} - Invoice: {{schedule.invoice_ID}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="leaveForm.form.invalid"
+            style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

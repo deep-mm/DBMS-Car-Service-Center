@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddLeaveComponent } from './add-leave/add-leave.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
 import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
+import { AddSwapComponent } from './add-swap/add-swap.component';
 import { AdminMainComponent } from './admin-main/admin-main.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { LoginComponent } from './login/login.component';
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'customerHomePage', component: CustomerHomeComponent },
   { path: 'mechanicHomePage', component: MechanicHomeComponent },
   { path: 'customer-car/new', component: AddCustomerCarComponent },
+  { path: 'leave/new', component: AddLeaveComponent },
+  { path: 'swapSlot/new', component: AddSwapComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
