@@ -1,0 +1,58 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Service</h2>
+    <form #leaveForm='ngForm'>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Service ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #ServiceID="ngModel" [(ngModel)]="service.id" name="ServiceID" required type="number"
+                    maxlength="50" [class.is-invalid]="ServiceID.invalid && (ServiceID.touched || ServiceID.dirty)">
+                <mat-error *ngIf="ServiceID.invalid && (ServiceID.touched || ServiceID.dirty)">
+                    Enter a valid ID
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Service Name</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #ServiceName="ngModel" [(ngModel)]="service.service_NAME" name="ServiceName" required type="text"
+                    maxlength="50" [class.is-invalid]="ServiceName.invalid && (ServiceName.touched || ServiceName.dirty)">
+                <mat-error *ngIf="ServiceName.invalid && (ServiceName.touched || ServiceName.dirty)">
+                    Enter a valid name
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <br>
+        <div style="margin-top: 10px;">
+            <mat-label>Repair Service Category</mat-label><br>
+            <mat-form-field appearance="outline">
+                <select matNativeControl [(ngModel)]="repairService.category_ID" name="category">
+                    <option value="" selected></option>
+                    <option *ngFor="let category of categories" [value]="category.category_ID">
+                        {{category.category_ID}} - {{category.category_NAME}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <br>
+        <div style="margin-top: 10px;">
+            <mat-label>Maintenance Service Bundle</mat-label><br>
+            <mat-form-field appearance="outline">
+                <select matNativeControl [(ngModel)]="maintenanceService.schedule_BUNDLE_ID" name="bundle">
+                    <option value="" selected></option>
+                    <option *ngFor="let category of scheduleBundles" [value]="category.schedule_BUNDLE_ID">
+                        {{category.schedule_BUNDLE_ID}} - {{category.name}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <br>
+        <button mat-raised-button (click)="submitForm()" [disabled]="leaveForm.form.invalid"
+            style="margin-top: 50px;">Submit</button>
+    </form>
+</div>

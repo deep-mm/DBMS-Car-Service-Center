@@ -4,8 +4,27 @@
 
 <button mat-raised-button (click)="viewServiceCenters()">View Service Centers</button><br><br>
 
-<button mat-raised-button (click)="viewServices()">View Services</button><br><br>
+<h3><strong>Services</strong></h3>
+
+<button mat-raised-button (click)="addService()">Add New Service</button><br><br>
+
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Service ID</th>
+            <th scope="col">Service Name</th>
+            <th scope="col">Repair Service</th>
+            <th scope="col">MaintenanceService</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of services" class="table-row-item">
+            <td>{{service.id}}</td>
+            <td>{{service.service_NAME}}</td>
+            <td>{{checkIfServiceIsRepair(service)?'✔️':''}}</td>
+            <td>{{checkIfServiceIsMaintenance(service)?'✔️':''}}</td>
+        </tr>
+    </tbody>
+</table>
 
 </div>
-
-<!-- Create table -->

@@ -34,6 +34,7 @@ import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
 import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.component';
 import { AddLeaveComponent } from './add-leave/add-leave.component';
 import { AddSwapComponent } from './add-swap/add-swap.component';
+import { AddServiceComponent } from './add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AddSwapComponent } from './add-swap/add-swap.component';
     MechanicHomeComponent,
     AddCustomerCarComponent,
     AddLeaveComponent,
-    AddSwapComponent
+    AddSwapComponent,
+    AddServiceComponent
   ],
   imports: [
     BrowserModule,
