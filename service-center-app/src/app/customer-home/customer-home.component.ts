@@ -7,6 +7,7 @@ import { CustomerScheduledService } from '../models/CustomerScheduledService';
 import { Invoice } from '../models/Invoice';
 import { CustomerCarService } from '../services/customer-car/customer-car.service';
 import { CustomerService } from '../services/customer/customer.service';
+import { ServiceService } from '../services/service/service.service';
 
 @Component({
   selector: 'app-customer-home',
@@ -91,5 +92,11 @@ export class CustomerHomeComponent implements OnInit {
     CustomerCarService.customerId = this.customer.customer_ID;
     CustomerCarService.serviceCenterId = this.customer.service_CENTER_ID;
     this.router.navigate(['customer-car/new']);
+  }
+
+  createNewSchedule(customerCar: CustomerCar) {
+    ServiceService.selectedCustomer = this.customer;
+    ServiceService.selectedCustomerCar = customerCar;
+    this.router.navigate(['schedule/new']);
   }
 }

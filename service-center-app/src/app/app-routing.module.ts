@@ -4,6 +4,7 @@ import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.com
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddLeaveComponent } from './add-leave/add-leave.component';
+import { AddScheduleComponent } from './add-schedule/add-schedule.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
 import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
 import { AddServiceComponent } from './add-service/add-service.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'leave/new', component: AddLeaveComponent },
   { path: 'swapSlot/new', component: AddSwapComponent },
   { path: 'service/new', component: AddServiceComponent },
+  { path: 'schedule/new', component: AddScheduleComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

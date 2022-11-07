@@ -15,6 +15,9 @@ export class ServiceService {
   private apiUrl = environment.apiBaseUrl + "/service";
   private maintenanceServiceUrl = environment.apiBaseUrl + "/maintenanceService";
   private repairServiceUrl = environment.apiBaseUrl + "/repairService";
+  static selectedCustomer: any;
+  static selectedCustomerCar: any;
+  static selectedServices: any;
 
   httpOptions = {
     headers: new HttpHeaders({

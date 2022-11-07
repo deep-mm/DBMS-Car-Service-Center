@@ -22,9 +22,12 @@
                 <td>{{customerCar.vin}}</td>
                 <td>{{customerCar.car_ID==1?'Honda':(customerCar.car_ID==2?'Nissan':'Toyota')}}</td>
                 <td>{{customerCar.mileage}}</td>
-                <td>{{customerCar.last_SCHEDULED_MAINTENANCE}}</td>
+                <td>{{customerCar.last_SCHEDULED_MAINTENANCE==1?'A':(customerCar.last_SCHEDULED_MAINTENANCE==2?'B':'C')}}</td>
                 <td>{{customerCar.year}}</td>
-                <td><button mat-raised-button (click)="deleteCustomerCar(customerCar)">Delete</button></td>
+                <td>
+                    <button mat-raised-button (click)="deleteCustomerCar(customerCar)">Delete</button>
+                    <button mat-raised-button (click)="createNewSchedule(customerCar)" style="margin-left: 5px;">Create new schedule</button><br><br>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -1,0 +1,49 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="margin: 20px;">
+<h2><strong>Create new service schedule</strong></h2>
+
+<h3><strong>Cart</strong></h3>
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Service ID</th>
+            <th scope="col">Service Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of cartService" class="table-row-item">
+            <td>{{service.id}}</td>
+            <td>{{service.service_NAME}}</td>
+        </tr>
+    </tbody>
+</table>
+<button mat-raised-button (click)="checkout()" *ngIf="cartService.length>0">Checkout</button>
+
+<br><br>
+<h3><strong>Repair Services</strong></h3>
+<table class="styled-table">
+    <thead class="thead-light">
+        <tr class="header" style="background-color: #ffffff;">
+            <th scope="col">Service ID</th>
+            <th scope="col">Service Name</th>
+            <th scope="col">Add to cart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of onlyRepairServices" class="table-row-item">
+            <td>{{service.id}}</td>
+            <td>{{service.service_NAME}}</td>
+            <td>
+                <button mat-raised-button (click)="addToCart(service)" *ngIf="!isServiceInCart(service)">Add to cart</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div style="margin-bottom: 50px;">
+<h3><strong>Maintenance Service</strong></h3>
+<h4>Your next scheduled maintenance is: Schedule {{this.nextScheduledService}} <button mat-raised-button (click)="addMaintenanceServicesToCart()" *ngIf="!maintenanceServiceAdded" style="margin-left: 10px;">Add to cart</button></h4>
+</div>
+<br><br>
+</div>
+

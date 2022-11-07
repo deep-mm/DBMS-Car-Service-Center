@@ -35,6 +35,7 @@ import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.com
 import { AddLeaveComponent } from './add-leave/add-leave.component';
 import { AddSwapComponent } from './add-swap/add-swap.component';
 import { AddServiceComponent } from './add-service/add-service.component';
+import { AddScheduleComponent } from './add-schedule/add-schedule.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AddServiceComponent } from './add-service/add-service.component';
     AddCustomerCarComponent,
     AddLeaveComponent,
     AddSwapComponent,
-    AddServiceComponent
+    AddServiceComponent,
+    AddScheduleComponent
   ],
   imports: [
     BrowserModule,
