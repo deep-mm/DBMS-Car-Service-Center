@@ -29,6 +29,8 @@ import { AddServiceCategoryComponent } from './add-service-category/add-service-
 import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.component';
 import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CustomerHomeComponent } from './customer-home/customer-home.component';
+import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     EmployeeDetailsComponent,
     AddServiceCategoryComponent,
     ScheduleBundleComponent,
-    ManagerHomeComponent
+    ManagerHomeComponent,
+    CustomerHomeComponent,
+    MechanicHomeComponent
   ],
   imports: [
     BrowserModule,

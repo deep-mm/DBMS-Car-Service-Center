@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
         if (data.role == "Admin") {
           this.router.navigate(['adminHomePage']);
         }
-        else if (data.role == "customer") {
+        else if (data.role == "Customer") {
+          CustomerService.customerUsername = data.username;
           this.router.navigate(['customerHomePage']);
         }
         else if (data.role == "Employee_1") {
@@ -45,6 +46,10 @@ export class LoginComponent implements OnInit {
         else if (data.role == "Employee_2") {
           EmployeeService.managerUsername = data.username;
           this.router.navigate(['receptionistHomePage']);
+        }
+        else if (data.role == "Employee_3") {
+          EmployeeService.managerUsername = data.username;
+          this.router.navigate(['mechanicHomePage']);
         }
         else {
           this._snackBar.open("Login Failed", "OK");

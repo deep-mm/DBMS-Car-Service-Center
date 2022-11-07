@@ -101,6 +101,18 @@
             </mat-form-field>
         </div>
 
+        <div style="margin-top: 10px;">
+            <mat-label>Compensation</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Compensation="ngModel" [(ngModel)]="compensation" name="Compensation" required type="number" [min]="serviceCenter.min_WAGE" [max]="serviceCenter.max_WAGE"
+                [class.is-invalid]="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
+                <mat-error *ngIf="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
+                    Enter a valid compensation amount, min = {{serviceCenter.min_WAGE}} and max = {{serviceCenter.max_WAGE}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
         <button mat-raised-button (click)="submitForm()" 
             style="margin-top: 50px;">Submit</button>
     </form>

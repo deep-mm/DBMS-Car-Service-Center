@@ -28,7 +28,7 @@ export class ManagerHomeComponent implements OnInit {
   loading: boolean = false;
   checkbox: boolean = false;
 
-  constructor(public router: Router, public employeeApiService: EmployeeService, public serviceCenterApiService: ServiceCenterService, private _snackBar: MatSnackBar, public serviceCenterProvidesServiceApi: ServiceCenterProvidesServiceService, public service: ServiceService, public carApi: CarService) { }
+  constructor(public router: Router, public employeeApiService: EmployeeService, public serviceCenterApiService: ServiceCenterService, private _snackBar: MatSnackBar, public serviceCenterProvidesServiceApi: ServiceCenterProvidesServiceService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -36,29 +36,14 @@ export class ManagerHomeComponent implements OnInit {
       this.manager = manager;
       this.serviceCenterApiService.getServiceCenterById(manager.service_CENTER_ID).subscribe((serviceCenter: ServiceCenter) => {
         this.serviceCenter = serviceCenter;
+        EmployeeService.serviceCenter = serviceCenter;
         this.checkbox = serviceCenter.weekend_WORKING == 1 ? true : false;
         EmployeeService.serviceCenterId = serviceCenter.service_CENTER_ID;
         this.employeeApiService.getEmployeesByServiceCenter(serviceCenter.service_CENTER_ID).subscribe((employees: Employee[]) => {
           this.employees = employees.filter(employee => employee.employee_ID != manager.employee_ID);
           this.serviceCenterProvidesServiceApi.getServiceCenterProvidesServices(this.serviceCenter.service_CENTER_ID).subscribe((serviceCenterProvidesService: ServiceCenterProvidesService[]) => {
             this.serviceCenterProvidesService = serviceCenterProvidesService;
-            this.service.getServices().subscribe((services: Service[]) => {
-              this.services = services;
-              this.loading = false;
-            }
-              , error => {
-                console.error('Error occurred while retrieving list of services from the database. Error: ' + error);
-              }
-            );
-        
-            this.carApi.getCars().subscribe((cars: Car[]) => {
-              this.cars = cars;
-              this.loading = false;
-            }
-              , error => {
-                console.error('Error occurred while retrieving list of cars from the database. Error: ' + error);
-              }
-            );
+            this.loading = false;
           },
             error => {
               console.error('Error occurred while retrieving list of service center provides services from the database. Error: ' + error);
@@ -72,12 +57,12 @@ export class ManagerHomeComponent implements OnInit {
       },
         error => {
           this.loading = false;
-          console.error('Error occurred while retrieving list of service centers from the database. Error: ' + error);
+          console.error('Error occurred while retrieving service center from the database. Error: ' + error);
         });
     },
       error => {
         this.loading = false;
-        console.error('Error occurred while retrieving list of service centers from the database. Error: ' + error);
+        console.error('Error occurred while retrieving manager from the database. Error: ' + error);
       });
 
   }
@@ -109,11 +94,34 @@ export class ManagerHomeComponent implements OnInit {
     this.router.navigate(['employee/new']);
   }
 
+  deleteEmployee(employee: Employee) {
+    this.loading = true;
+    this.employeeApiService.deleteEmployee(employee.employee_ID).subscribe((success: boolean) => {
+      this.loading = false;
+      if (success) {
+        this._snackBar.open('Employee deleted successfully.', '', {
+          duration: 3000,
+        });
+        this.ngOnInit();
+      }
+      else {
+        this._snackBar.open('Error occurred while deleting employee.', '', {
+          duration: 3000,
+        });
+      }
+    },
+      error => {
+        this.loading = false;
+        console.error('Error occurred while deleting employee. Error: ' + error);
+      });
+  }
+
+
   getPrice(service: Service, car: Car) {
     if (this.serviceCenterProvidesService.length > 0) {
       return this.serviceCenterProvidesService.find(serviceCenterProvidesService => serviceCenterProvidesService.id == service.id && serviceCenterProvidesService.car_ID == car.car_ID)!.price;
     }
-    else{
+    else {
       return 0;
     }
   }
@@ -124,5 +132,26 @@ export class ManagerHomeComponent implements OnInit {
 
   getIndex(service: Service, car: Car) {
     return this.serviceCenterProvidesService.findIndex(serviceCenterProvidesService => serviceCenterProvidesService.id == service.id && serviceCenterProvidesService.car_ID == car.car_ID);
+  }
+
+  updateService(serviceCenterProvidesService: ServiceCenterProvidesService) {
+    this.loading = true;
+    this.serviceCenterProvidesServiceApi.updateServiceCenterProvidesService(serviceCenterProvidesService).subscribe((success: boolean) => {
+      this.loading = false;
+      if (success) {
+        this._snackBar.open('Service updated successfully.', '', {
+          duration: 3000,
+        });
+      }
+      else {
+        this._snackBar.open('Error occurred while updating service.', '', {
+          duration: 3000,
+        });
+      }
+    },
+      error => {
+        this.loading = false;
+        console.error('Error occurred while updating service. Error: ' + error);
+      });
   }
 }

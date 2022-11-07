@@ -1,3 +1,5 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
 <div style="margin: 20px;">
 <h2>Welcome Manager: {{manager.name}}</h2>
 <h3><b>Service Center Details</b></h3>
@@ -45,6 +47,7 @@
             <td>{{employee.username}}</td>
             <td>{{employee.password}}</td>
             <td>
+                <button mat-raised-button color="warn" (click)="deleteEmployee(employee)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>
     </tbody>
@@ -57,18 +60,19 @@
     <form #serviceCenterForm='ngForm'>
     <thead class="thead-light">
         <tr class="header" style="background-color: #ffffff;">
-            <th scope="col">Service Name</th>
-            <th *ngFor="let car of cars" class="table-row-item">{{car.manufacturer}}</th>
+            <th scope="col">Service ID</th>
+            <th>Car</th>
+            <th>Price</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let service of services; let i = index; trackBy:trackByIndex;" class="table-row-item">
-            <td>{{service.service_NAME}}</td>
-            <td *ngFor="let car of cars; let j = index; trackBy:trackByIndex;" class="table-row-item">
-                <mat-form-field appearance="outline">
-                    <input matInput #ServicePrice="ngModel"
-                        [(ngModel)]="serviceCenterProvidesService[getIndex(service,car)].price" name="ServicePrice" required type="number">
-                </mat-form-field>
+        <tr *ngFor="let scps of serviceCenterProvidesService; let i = index" class="table-row-item">
+            <td>{{scps.id}}</td>
+            <td>{{scps.car_ID}}</td>
+            <td><input matInput [(ngModel)]="scps.price" required type="number" name="{{'price' + i}}"></td>
+            <td>
+                <button mat-raised-button (click)="updateService(scps)">Update</button>
             </td>
         </tr>
     </tbody>

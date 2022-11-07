@@ -34,6 +34,18 @@ public class InvoiceController {
         return invoices;
     }
 
+    @GetMapping("/api/invoices/{service_center_id}/{customer_id}")
+    public List<Invoice> getInvoiceByCustomerId(@PathVariable int customer_id, @PathVariable int service_center_id){
+        String sql = "SELECT UNIQUE I.* FROM CUSTOMER C, SERVICE_EVENT SE, CUSTOMER_CAR CC, INVOICE I WHERE SE.vin = CC.vin AND I.INVOICE_ID = SE.INVOICE_ID AND CC.customer_id = C.customer_id AND CC.service_center_id = C.service_center_id AND C.customer_id = " + customer_id + " AND C.service_center_id = " + service_center_id + " ORDER BY I.INVOICE_ID";
+
+        List<Invoice> invoices = jdbcTemplate.query(
+                sql,
+                BeanPropertyRowMapper.newInstance(Invoice.class)
+        );
+        invoices.forEach(System.out::println);
+        return invoices;
+    }
+
     @PostMapping("/api/invoice")
     public boolean addInvoice(@RequestBody Invoice invoice){
         String sql =

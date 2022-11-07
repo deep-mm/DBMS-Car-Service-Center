@@ -1,0 +1,46 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="margin: 20px;">
+    <h2>Welcome: {{customer.first_NAME}}</h2>
+
+    <button mat-raised-button (click)="viewProfile()">View/Update Profile</button><br><br>
+
+    <h3><strong>Scheduled Services:</strong></h3>
+    <table class="styled-table">
+        <thead class="thead-light">
+            <tr class="header" style="background-color: #ffffff;">
+                <th scope="col">Service Name</th>
+                <th scope="col">VIN</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customerSchedule of customerSchedules" class="table-row-item">
+                <td>{{customerSchedule.service_NAME}}</td>
+                <td>{{customerSchedule.VIN}}</td>
+                <td>{{customerSchedule.START_TIME}}</td>
+                <td>{{customerSchedule.END_TIME}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><strong>Invoices:</strong></h3>
+    <table class="styled-table">
+        <thead class="thead-light">
+            <tr class="header" style="background-color: #ffffff;">
+                <th scope="col">Invoice ID</th>
+                <th scope="col">Total Cost</th>
+                <th scope="col">Invoice Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customerInvoice of invoices" class="table-row-item">
+                <td>{{customerInvoice.invoice_ID}}</td>
+                <td>{{customerInvoice.total_COST}}</td>
+                <td>{{customerInvoice.invoice_STATUS==1?'Paid':'Unpaid'}}</td>
+                <td><button mat-raised-button (click)="updateInvoice(customerInvoice)" *ngIf="customerInvoice.invoice_STATUS==0">Pay</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

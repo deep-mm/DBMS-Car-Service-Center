@@ -83,7 +83,7 @@
             </mat-form-field>
         </div>
 
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 10px;" *ngIf="!update">
             <mat-label>VIN</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #VIN="ngModel" [(ngModel)]="customerCar.vin" name="VIN" required type="number"
@@ -94,7 +94,7 @@
             </mat-form-field>
         </div>
 
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 10px;" *ngIf="!update">
             <mat-label>Mileage</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Mileage="ngModel" [(ngModel)]="customerCar.mileage" name="Mileage" required
@@ -106,7 +106,7 @@
             </mat-form-field>
         </div>
 
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 10px;" *ngIf="!update">
             <mat-label>Year</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Year="ngModel" [(ngModel)]="customerCar.year" name="Year" required type="number"
@@ -117,7 +117,7 @@
             </mat-form-field>
         </div>
 
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 10px;" *ngIf="!update">
             <mat-label>Car Model</mat-label><br>
             <mat-form-field appearance="outline">
                 <select matNativeControl [(ngModel)]="customerCar.car_ID" name="car">

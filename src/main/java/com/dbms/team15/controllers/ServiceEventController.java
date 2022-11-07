@@ -1,5 +1,6 @@
 package com.dbms.team15.controllers;
 
+import com.dbms.team15.models.CustomerScheduledService;
 import com.dbms.team15.models.ServiceEvent;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class ServiceEventController {
 
     serviceEvents.forEach(System.out::println);
     return serviceEvents;
+  }
+
+  @GetMapping("/api/scheduledServices/{service_center_id}/{customer_id}")
+  public List<CustomerScheduledService> getScheduledServices(@PathVariable("customer_id") int customer_id, @PathVariable("service_center_id") int service_center_id) {
+    String sql = "SELECT UNIQUE S.SERVICE_NAME, CC.VIN, SE.start_time, SE.end_time FROM CUSTOMER C, SERVICE_EVENT SE, CUSTOMER_CAR CC, SERVICE S WHERE SE.vin = CC.vin AND SE.ID = S.ID AND CC.customer_id = C.customer_id AND CC.service_center_id = C.service_center_id AND C.customer_id = " + customer_id + " AND C.service_center_id = " + service_center_id + " ORDER BY START_TIME";
+
+    List<CustomerScheduledService> scheduledServices = jdbcTemplate.query(
+      sql,
+      BeanPropertyRowMapper.newInstance(CustomerScheduledService.class)
+    );
+
+    scheduledServices.forEach(System.out::println);
+    return scheduledServices;
   }
 
   @PostMapping("/api/serviceEvent")

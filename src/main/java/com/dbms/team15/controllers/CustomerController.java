@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(maxAge = 3600)
@@ -66,6 +67,16 @@ public class CustomerController {
     @GetMapping("/api/customer/{service_center_id}/{id}")
     public Customer getCustomer(@PathVariable int id, @PathVariable int service_center_id) {
         String sql = "SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = " + id + " AND SERVICE_CENTER_ID = " + service_center_id;
+
+        List<Customer> customers = jdbcTemplate.query(
+                sql,
+                BeanPropertyRowMapper.newInstance(Customer.class));
+        return customers.get(0);
+    }
+
+    @GetMapping("/api/customer/username")
+    public Customer getCustomerByUsername(@RequestParam(value = "username", defaultValue = "") String username) {
+        String sql = "SELECT * FROM CUSTOMER WHERE USERNAME = '" + username + "'";
 
         List<Customer> customers = jdbcTemplate.query(
                 sql,

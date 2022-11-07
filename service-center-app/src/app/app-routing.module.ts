@@ -5,6 +5,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
 import { AddServiceCenterComponent } from './add-service-center/add-service-center.component';
 import { AdminMainComponent } from './admin-main/admin-main.component';
+import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { LoginComponent } from './login/login.component';
 import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { ServiceCategory } from './models/ServiceCategory';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'scheduleBundles', component: ScheduleBundleComponent },
   { path: 'managerHomePage', component: ManagerHomeComponent },
   { path: 'employee/new', component: AddEmployeeComponent },
+  { path: 'customerHomePage', component: CustomerHomeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Employee } from '../models/Employee';
 import { EmployeeService } from '../services/employee/employee.service';
 import {DatePipe, Location} from '@angular/common';
+import { ServiceCenter } from '../models/ServiceCenter';
 
 @Component({
   selector: 'app-add-employee',
@@ -24,6 +25,9 @@ export class AddEmployeeComponent implements OnInit {
     username: "",
     password: ""
   });
+
+  compensation: number = 0;
+  serviceCenter: ServiceCenter = EmployeeService.serviceCenter;
 
   roles = ["Manager", "Receptionist", "Mechanic"];
 

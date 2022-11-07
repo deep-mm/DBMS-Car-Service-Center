@@ -38,11 +38,16 @@ export class AddCustomerComponent implements OnInit {
 
   cars: Car[] = [];
   loading: boolean = false;
+  update: boolean = false;
 
   constructor(public router: Router, public _apiService: CustomerService, private _snackBar: MatSnackBar, public customerCarApiService: CustomerCarService) { }
 
   ngOnInit(): void {
     this.loading = true;
+    if (CustomerService.selectedCustomer != null) {
+      this.customer = CustomerService.selectedCustomer;
+      this.update = true;
+    }
     this._apiService.getCars().subscribe((cars: Car[]) => {
       this.cars = cars;
       this.loading = false;
@@ -55,28 +60,45 @@ export class AddCustomerComponent implements OnInit {
 
   submitForm() {
     this.loading = true;
-    this.customer.service_CENTER_ID = CustomerService.serviceCenterId;
     console.log(this.customer);
-    this._apiService.addCustomer(this.customer).subscribe(
-      (data) => {
-        console.log(data);
-        this.customerCar.customer_ID = this.customer.customer_ID;
-        this.customerCar.service_CENTER_ID = this.customer.service_CENTER_ID;
-        this.customerCarApiService.addCustomerCar(this.customerCar).subscribe(
-          (data) => {
-            console.log(data);
-            this.loading = false;
-            this._snackBar.open('Customer added successfully', 'Close', {
-              duration: 2000,
-            });
-            this.router.navigate(['receptionistHomePage']);
+    if (this.update) {
+      this._apiService.updateCustomer(this.customer).subscribe(
+        (res: any) => {
+          this.loading = false;
+          this._snackBar.open('Customer updated successfully', 'Close', {
+            duration: 2000,
           });
-      },
-      (err) => {
-        console.log(err);
-        this.loading = false;
-      }
-    );
+          this.router.navigate(['customerHomePage']);
+        },
+        error => {
+          this.loading = false;
+          console.error('Error occurred while updating customer in the database. Error: ' + error);
+        }
+      );
+    }
+    else {
+      this.customer.service_CENTER_ID = CustomerService.serviceCenterId;
+      this._apiService.addCustomer(this.customer).subscribe(
+        (data) => {
+          console.log(data);
+          this.customerCar.customer_ID = this.customer.customer_ID;
+          this.customerCar.service_CENTER_ID = this.customer.service_CENTER_ID;
+          this.customerCarApiService.addCustomerCar(this.customerCar).subscribe(
+            (data) => {
+              console.log(data);
+              this.loading = false;
+              this._snackBar.open('Customer added successfully', 'Close', {
+                duration: 2000,
+              });
+              this.router.navigate(['receptionistHomePage']);
+            });
+        },
+        (err) => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
+    }
   }
 
 }

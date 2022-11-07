@@ -14,6 +14,7 @@ export class EmployeeService {
   static serviceCenterId: any;
   static managerUsername: any;
   static roles: any;
+  static serviceCenter: any;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -58,7 +59,7 @@ export class EmployeeService {
   }
 
   public deleteEmployee(employeeId: number): Observable<boolean> {
-    return this.http.delete<any>(`${this.baseUrl}/${employeeId}`).pipe(map((json: boolean) => {
+    return this.http.delete<any>(`${this.baseUrl}/${EmployeeService.serviceCenterId}/${employeeId}`).pipe(map((json: boolean) => {
       return json;
     })
     );

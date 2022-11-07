@@ -47,7 +47,7 @@ export class ServiceCenterProvidesServiceService {
   }
 
   public updateServiceCenterProvidesService(serviceCenterProvidesService: ServiceCenterProvidesService): Observable<boolean> {
-    return this.http.put<any>(`${this.carApiUrl}`, serviceCenterProvidesService).pipe(map((json: boolean) => {
+    return this.http.put<any>(`${this.carApiUrl}/${serviceCenterProvidesService.service_CENTER_ID}/${serviceCenterProvidesService.car_ID}/${serviceCenterProvidesService.id}`, serviceCenterProvidesService).pipe(map((json: boolean) => {
       return json;
     }));
   }
