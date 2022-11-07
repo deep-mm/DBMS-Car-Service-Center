@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, Observable } from 'rxjs';
 import { Employee } from 'src/app/models/Employee';
+import { MechanicSchedule } from 'src/app/models/MechanicSchedule';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,6 +31,18 @@ export class EmployeeService {
         const employees: Employee[] = [];
         for (const employee of json) {
           employees.push(new Employee(employee));
+        }
+        return employees;
+      })
+    );
+  }
+
+  public getMechanicSchedule(serviceCenterId: number, employeeId: number): Observable<MechanicSchedule[]> {
+    return this.http.get(`${this.baseUrl}/mechanic/${serviceCenterId}/${employeeId}`).pipe(
+      map((json: any) => {
+        const employees: MechanicSchedule[] = [];
+        for (const employee of json) {
+          employees.push(new MechanicSchedule(employee));
         }
         return employees;
       })

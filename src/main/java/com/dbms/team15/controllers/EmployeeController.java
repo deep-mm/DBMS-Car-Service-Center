@@ -1,6 +1,7 @@
 package com.dbms.team15.controllers;
 
 import com.dbms.team15.models.Employee;
+import com.dbms.team15.models.MechanicSchedule;
 import com.dbms.team15.models.ServiceCenter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,18 @@ public class EmployeeController {
 
 		employees.forEach(System.out::println);
 		return employees;
+	}
+
+	@GetMapping("/api/employee/mechanic/{service_center_id}/{employee_id}")
+	public List<MechanicSchedule> getMechanicSchedule(@PathVariable int service_center_id, @PathVariable int employee_id) {
+		String sql = "SELECT S.SERVICE_NAME, C.MANUFACTURER, SE.VIN, SE.START_TIME, SE.END_TIME FROM SERVICE S, CAR C, SERVICE_EVENT SE, CUSTOMER_CAR CC WHERE SE.ID = S.ID AND SE.VIN = CC.VIN AND CC.CAR_ID = C.CAR_ID AND SE.MECHANIC_ID = " + employee_id + " AND SE.SERVICE_CENTER_ID = " + service_center_id;
+
+		List<MechanicSchedule> schedules = jdbcTemplate.query(
+				sql,
+				BeanPropertyRowMapper.newInstance(MechanicSchedule.class));
+
+		schedules.forEach(System.out::println);
+		return schedules;
 	}
 
 	@PostMapping("/api/employee")

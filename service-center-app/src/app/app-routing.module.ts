@@ -8,6 +8,7 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { LoginComponent } from './login/login.component';
 import { ManagerHomeComponent } from './manager-home/manager-home.component';
+import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
 import { ServiceCategory } from './models/ServiceCategory';
 import { ReceptionistMainComponent } from './receptionist-main/receptionist-main.component';
 import { ScheduleBundleComponent } from './schedule-bundle/schedule-bundle.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'managerHomePage', component: ManagerHomeComponent },
   { path: 'employee/new', component: AddEmployeeComponent },
   { path: 'customerHomePage', component: CustomerHomeComponent },
+  { path: 'mechanicHomePage', component: MechanicHomeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

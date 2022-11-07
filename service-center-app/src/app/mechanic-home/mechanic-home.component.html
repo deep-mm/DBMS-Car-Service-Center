@@ -1,1 +1,26 @@
-<p>mechanic-home works!</p>
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+
+<div style="margin: 20px;">
+    <h2>Welcome: {{mechanic.name}}</h2>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th scope="col">Service Name</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">VIN</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ms of mechanicSchedule">
+                <td>{{ms.service_NAME}}</td>
+                <td>{{ms.manufacturer}}</td>
+                <td>{{ms.vin}}</td>
+                <td>{{ms.start_TIME}}</td>
+                <td>{{ms.end_TIME}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
