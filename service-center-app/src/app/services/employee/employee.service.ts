@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, Observable } from 'rxjs';
 import { Employee } from 'src/app/models/Employee';
+import { HourlyPaidEmployee } from 'src/app/models/HourlyPaidEmployee';
 import { Leave } from 'src/app/models/Leave';
 import { MechanicSchedule } from 'src/app/models/MechanicSchedule';
+import { SalariedEmployee } from 'src/app/models/SalariedEmployee';
 import { SwapSlot } from 'src/app/models/SwapSlot';
 import { environment } from 'src/environments/environment';
 
@@ -16,6 +18,8 @@ export class EmployeeService {
   private baseUrl = environment.apiBaseUrl + "/employee";
   public leaveUrl = environment.apiBaseUrl + "/leave";
   public swapslotsUrl = environment.apiBaseUrl + "/swapSlots";
+  public salariedEmployeeUrl = environment.apiBaseUrl + "/salariedEmployee";
+  public hourlyPaidEmployeeUrl = environment.apiBaseUrl + "/hourlyPaidEmployee";
   static serviceCenterId: any;
   static managerUsername: any;
   static employeeId: any;
@@ -132,6 +136,20 @@ export class EmployeeService {
 
   public deleteEmployee(employeeId: number): Observable<boolean> {
     return this.http.delete<any>(`${this.baseUrl}/${EmployeeService.serviceCenterId}/${employeeId}`).pipe(map((json: boolean) => {
+      return json;
+    })
+    );
+  }
+
+  public addSalariedEmployee(employee: SalariedEmployee): Observable<boolean> {
+    return this.http.post<any>(`${this.salariedEmployeeUrl}`, employee).pipe(map((json: boolean) => {
+      return json;
+    })
+    );
+  }
+
+  public addHourlyPaidEmployee(employee: HourlyPaidEmployee): Observable<boolean> {
+    return this.http.post<any>(`${this.hourlyPaidEmployeeUrl}`, employee).pipe(map((json: boolean) => {
       return json;
     })
     );

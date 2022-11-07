@@ -1,6 +1,7 @@
 <ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
 
-<button mat-raised-button style="margin-left: 20px;" (click)="addServiceCenter()">Add Service Center</button><br><br>
+<div style="margin: 20px;">
+<button mat-raised-button (click)="addServiceCenter()">Add Service Center</button><br><br>
 
 <table class="styled-table">
     <thead class="thead-light">
@@ -8,6 +9,8 @@
             <th scope="col">Service Center ID</th>
             <th scope="col">Address</th>
             <th scope="col">Telephone No</th>
+            <th scope="col">Min Wage</th>
+            <th scope="col">Max Wage</th>
             <th scope="col">Operational Status</th>
             <th scope="col">Weekend Working</th>
             <th scope="col">Actions</th>
@@ -18,13 +21,14 @@
             <td>{{serviceCenter.service_CENTER_ID}}</td>
             <td>{{serviceCenter.address}}</td>
             <td>{{serviceCenter.telephone_NO}}</td>
+            <td>{{serviceCenter.min_WAGE}}</td>
+            <td>{{serviceCenter.max_WAGE}}</td>
             <td>{{serviceCenter.operational_STATUS==1?'Operational':'Non Operational'}}</td>
             <td>{{serviceCenter.weekend_WORKING==1?'Yes':'No'}}</td>
             <td>
-                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)">Manager</button>
-                <button mat-raised-button color="primary" (click)="editServiceCenter(serviceCenter)" style="margin-left: 5px;">Edit</button>
                 <button mat-raised-button color="warn" (click)="deleteServiceCenter(serviceCenter.service_CENTER_ID)" style="margin-left: 5px;">Delete</button>
             </td>
         </tr>
     </tbody>
 </table>
+</div>

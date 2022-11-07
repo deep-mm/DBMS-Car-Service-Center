@@ -5,6 +5,8 @@ import { Employee } from '../models/Employee';
 import { EmployeeService } from '../services/employee/employee.service';
 import {DatePipe, Location} from '@angular/common';
 import { ServiceCenter } from '../models/ServiceCenter';
+import { SalariedEmployee } from '../models/SalariedEmployee';
+import { HourlyPaidEmployee } from '../models/HourlyPaidEmployee';
 
 @Component({
   selector: 'app-add-employee',
@@ -48,11 +50,40 @@ export class AddEmployeeComponent implements OnInit {
     this._apiService.addEmployee(this.employee).subscribe(
       (data) => {
         console.log(data);
-        this.loading = false;
-        this._snackBar.open('Employee added successfully', 'Close', {
-          duration: 2000,
-        });
-        this._location.back();
+        if (this.employee.role == 2) {
+          let salariedEmployee = new SalariedEmployee({
+            employee_ID: this.employee.employee_ID,
+            service_CENTER_ID: this.employee.service_CENTER_ID,
+            salary: this.compensation
+          });
+          this._apiService.addSalariedEmployee(salariedEmployee).subscribe(
+            (data) => {
+              console.log(data);
+              this.loading = false;
+              this._snackBar.open('Employee added successfully', 'Close', {
+                duration: 2000,
+              });
+              this._location.back();
+            }
+          );
+        }
+        else{
+          let hourlyPaidEmployee = new HourlyPaidEmployee({
+            employee_ID: this.employee.employee_ID,
+            service_CENTER_ID: this.employee.service_CENTER_ID,
+            hourly_RATE: this.compensation
+          });
+          this._apiService.addHourlyPaidEmployee(hourlyPaidEmployee).subscribe(
+            (data) => {
+              console.log(data);
+              this.loading = false;
+              this._snackBar.open('Employee added successfully', 'Close', {
+                duration: 2000,
+              });
+              this._location.back();
+            }
+          );
+        }
       },
       (err) => {
         console.log(err);

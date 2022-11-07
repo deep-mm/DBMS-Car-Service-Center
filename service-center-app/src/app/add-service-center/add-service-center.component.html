@@ -39,8 +39,132 @@
         </div>
 
         <div style="margin-top: 10px;">
+            <mat-label>Minimum Wage</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput required #MinWage="ngModel"
+                    [(ngModel)]="serviceCenter.min_WAGE" name="MinWage" type="number" [max]="serviceCenter.max_WAGE"
+                    [class.is-invalid]="MinWage.invalid && (MinWage.touched || MinWage.dirty)">
+                <mat-error *ngIf="MinWage.invalid && (MinWage.touched || MinWage.dirty)">
+                    Enter a valid minimum wage
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Maximum Wage</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput required #MaxWage="ngModel"
+                    [(ngModel)]="serviceCenter.max_WAGE" name="MaxWage" type="number" [min]="serviceCenter.min_WAGE"
+                    [class.is-invalid]="MaxWage.invalid && (MaxWage.touched || MaxWage.dirty)">
+                <mat-error *ngIf="MaxWage.invalid && (MaxWage.touched || MaxWage.dirty)">
+                    Enter a valid maximum wage
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
             <mat-label>Weekend Working</mat-label><br>
             <mat-checkbox #WeekendWorking="ngModel" name="WeekendWorking" [(ngModel)]="serviceCenter.weekend_WORKING">Yes</mat-checkbox>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Manager ID</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" required #EmployeeID="ngModel" [(ngModel)]="employee.employee_ID"
+                    name="EmployeeID" type="number" min="0"
+                    [class.is-invalid]="EmployeeID.invalid && (EmployeeID.touched || EmployeeID.dirty)">
+                <mat-error *ngIf="EmployeeID.invalid && (EmployeeID.touched || EmployeeID.dirty)">
+                    Enter a valid employee id
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Name</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Name="ngModel" [(ngModel)]="employee.name" name="Name" required type="text"
+                    maxlength="250" [class.is-invalid]="Name.invalid && (Name.touched || Name.dirty)">
+                <mat-error *ngIf="Name.invalid && (Name.touched || Name.dirty)">
+                    Enter a valid Name
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Address</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Address="ngModel" [(ngModel)]="employee.address" name="Address" required type="text"
+                    maxlength="250" [class.is-invalid]="Address.invalid && (Address.touched || Address.dirty)">
+                <mat-error *ngIf="Address.invalid && (Address.touched || Address.dirty)">
+                    Enter a valid Address
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Start Date</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #StartDate="ngModel" [(ngModel)]="employee.start_DATE" name="StartDate" required
+                    type="date" [class.is-invalid]="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
+                <mat-error *ngIf="StartDate.invalid && (StartDate.touched || StartDate.dirty)">
+                    Enter a valid Start Date
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Email</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Email="ngModel" [(ngModel)]="employee.email" name="Email" required type="email"
+                    maxlength="250" [class.is-invalid]="Email.invalid && (Email.touched || Email.dirty)">
+                <mat-error *ngIf="Email.invalid && (Email.touched || Email.dirty)">
+                    Enter a valid Email
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Phone</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Phone="ngModel" [(ngModel)]="employee.phone" name="Phone" required type="text"
+                    maxlength="250" [class.is-invalid]="Phone.invalid && (Phone.touched || Phone.dirty)">
+                <mat-error *ngIf="Phone.invalid && (Phone.touched || Phone.dirty)">
+                    Enter a valid Phone
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Username</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Username="ngModel" [(ngModel)]="employee.username" name="Username" required type="text"
+                    maxlength="250" [class.is-invalid]="Username.invalid && (Username.touched || Username.dirty)">
+                <mat-error *ngIf="Username.invalid && (Username.touched || Username.dirty)">
+                    Enter a valid Username
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Password</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Password="ngModel" [(ngModel)]="employee.password" name="Password" required type="text"
+                    maxlength="250" [class.is-invalid]="Password.invalid && (Password.touched || Password.dirty)">
+                <mat-error *ngIf="Password.invalid && (Password.touched || Password.dirty)">
+                    Enter a valid Password
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Salary</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Compensation="ngModel" [(ngModel)]="compensation" name="Compensation" required type="number"
+                [class.is-invalid]="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
+                <mat-error *ngIf="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
+                    Enter a valid salary amount
+                </mat-error>
+            </mat-form-field>
         </div>
 
         <button mat-raised-button (click)="submitForm()" [disabled]="serviceCenterForm.form.invalid" style="margin-top: 50px;">Submit</button>
