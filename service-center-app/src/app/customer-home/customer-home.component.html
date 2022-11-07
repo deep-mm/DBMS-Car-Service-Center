@@ -4,6 +4,32 @@
 
     <button mat-raised-button (click)="viewProfile()">View/Update Profile</button><br><br>
 
+    <h3><strong>Cars:</strong></h3>
+
+    <table class="styled-table">
+        <thead class="thead-light">
+            <tr class="header" style="background-color: #ffffff;">
+                <th scope="col">VIN</th>
+                <th scope="col">Car</th>
+                <th scope="col">Mileage</th>
+                <th scope="col">Last Scheduled Maintenance</th>
+                <th scope="col">Year</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customerCar of customerCars" class="table-row-item">
+                <td>{{customerCar.vin}}</td>
+                <td>{{customerCar.car_ID==1?'Honda':(customerCar.car_ID==2?'Nissan':'Toyota')}}</td>
+                <td>{{customerCar.mileage}}</td>
+                <td>{{customerCar.last_SCHEDULED_MAINTENANCE}}</td>
+                <td>{{customerCar.year}}</td>
+                <td><button mat-raised-button (click)="deleteCustomerCar(customerCar)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button mat-raised-button (click)="addCustomerCar()">Add Car</button><br><br>
+
     <h3><strong>Scheduled Services:</strong></h3>
     <table class="styled-table">
         <thead class="thead-light">

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddServiceCategoryComponent } from './add-service-category/add-service-category.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'employee/new', component: AddEmployeeComponent },
   { path: 'customerHomePage', component: CustomerHomeComponent },
   { path: 'mechanicHomePage', component: MechanicHomeComponent },
+  { path: 'customer-car/new', component: AddCustomerCarComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

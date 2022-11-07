@@ -69,7 +69,7 @@
     <tbody>
         <tr *ngFor="let scps of serviceCenterProvidesService; let i = index" class="table-row-item">
             <td>{{scps.id}}</td>
-            <td>{{scps.car_ID}}</td>
+            <td>{{scps.car_ID==1?'Honda':(scps.car_ID==2?'Nissan':'Toyota')}}</td>
             <td><input matInput [(ngModel)]="scps.price" required type="number" name="{{'price' + i}}"></td>
             <td>
                 <button mat-raised-button (click)="updateService(scps)">Update</button>

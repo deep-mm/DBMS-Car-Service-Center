@@ -36,6 +36,19 @@ public class CustomerCarController {
         return customerCars;
     }
 
+    @GetMapping("/api/customerCar/{service_center_id}/{customer_id}")
+    public List<CustomerCar> getCustomerCars(@PathVariable("service_center_id") String service_center_id, @PathVariable("customer_id") String customer_id) {
+        String sql = "SELECT * FROM CUSTOMER_CAR WHERE CUSTOMER_ID = " + customer_id + " AND SERVICE_CENTER_ID = " + service_center_id;
+
+        List<CustomerCar> customerCars = jdbcTemplate.query(
+                sql,
+                BeanPropertyRowMapper.newInstance(CustomerCar.class)
+        );
+
+        customerCars.forEach(System.out::println);
+        return customerCars;
+    }
+
     @PostMapping("/api/customerCar")
     public boolean addCustomerCar(@RequestBody CustomerCar customerCar){
         String sql =

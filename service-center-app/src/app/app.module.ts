@@ -31,6 +31,7 @@ import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
+import { AddCustomerCarComponent } from './add-customer-car/add-customer-car.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MechanicHomeComponent } from './mechanic-home/mechanic-home.component';
     ScheduleBundleComponent,
     ManagerHomeComponent,
     CustomerHomeComponent,
-    MechanicHomeComponent
+    MechanicHomeComponent,
+    AddCustomerCarComponent
   ],
   imports: [
     BrowserModule,

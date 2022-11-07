@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 export class CustomerCarService {
 
   private apiUrl = environment.apiBaseUrl + "/customerCar";
+  static customerId: any;
+  static serviceCenterId: any;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,6 +24,18 @@ export class CustomerCarService {
 
   public getCustomerCars(): Observable<CustomerCar[]> {
     return this.http.get(`${this.apiUrl}`).pipe(
+      map((json: any) => {
+        const customerCars: CustomerCar[] = [];
+        for (const customerCar of json) {
+          customerCars.push(new CustomerCar(customerCar));
+        }
+        return customerCars;
+      })
+    );
+  }
+
+  public getCustomerCarsByCustomerId(serviceCenterId: number, customerId: number): Observable<CustomerCar[]> {
+    return this.http.get(`${this.apiUrl}/${serviceCenterId}/${customerId}`).pipe(
       map((json: any) => {
         const customerCars: CustomerCar[] = [];
         for (const customerCar of json) {

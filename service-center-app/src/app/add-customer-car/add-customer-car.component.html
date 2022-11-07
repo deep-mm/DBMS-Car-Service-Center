@@ -1,0 +1,55 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop: true}"></ngx-loading>
+<div style="padding: 80px;">
+    <h2>New Customer Car</h2>
+    <form #customerForm='ngForm'>
+
+        <div style="margin-top: 10px;">
+            <mat-label>VIN</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #VIN="ngModel" [(ngModel)]="customerCar.vin" name="VIN" required type="number"
+                    maxlength="50" [class.is-invalid]="VIN.invalid && (VIN.touched || VIN.dirty)">
+                <mat-error *ngIf="VIN.invalid && (VIN.touched || VIN.dirty)">
+                    Enter a valid VIN
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Mileage</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Mileage="ngModel" [(ngModel)]="customerCar.mileage" name="Mileage" required
+                    type="number" maxlength="50"
+                    [class.is-invalid]="Mileage.invalid && (Mileage.touched || Mileage.dirty)">
+                <mat-error *ngIf="Mileage.invalid && (Mileage.touched || Mileage.dirty)">
+                    Enter a valid Mileage
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Year</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #Year="ngModel" [(ngModel)]="customerCar.year" name="Year" required type="number"
+                    maxlength="50" [class.is-invalid]="Year.invalid && (Year.touched || Year.dirty)">
+                <mat-error *ngIf="Year.invalid && (Year.touched || Year.dirty)">
+                    Enter a valid Year
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <mat-label>Car Model</mat-label><br>
+            <mat-form-field appearance="outline">
+                <select matNativeControl [(ngModel)]="customerCar.car_ID" name="car">
+                    <option value="" selected></option>
+                    <option *ngFor="let car of cars; let i = index" [value]="i+1">
+                        {{car.manufacturer}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button (click)="submitForm()" [disabled]="customerForm.form.invalid"
+            style="margin-top: 50px;">Submit</button>
+    </form>
+</div>
