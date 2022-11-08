@@ -8,10 +8,12 @@ import { Invoice } from '../models/Invoice';
 import { MaintenanceService } from '../models/MaintenanceService';
 import { RepairService } from '../models/RepairService';
 import { Service } from '../models/Service';
+import { ServiceCenter } from '../models/ServiceCenter';
 import { ServiceCenterProvidesService } from '../models/ServiceCenterProvidesService';
 import { ServiceEvent } from '../models/ServiceEvent';
 import { ServicesCar } from '../models/ServicesCar';
 import { ServiceCenterProvidesServiceService } from '../services/service-center-provides-service/service-center-provides-service.service';
+import { ServiceCenterService } from '../services/service-center/service-center.service';
 import { ServiceService } from '../services/service/service.service';
 
 @Component({
@@ -41,8 +43,9 @@ export class AddScheduleComponent implements OnInit {
   preferredTime: number = 0;
   remainingTime: number = 11;
   mechanicId: number = 0;
+  serviceCenter: any = null;
 
-  constructor(public router: Router, public _apiService: ServiceService, private _snackBar: MatSnackBar, public scpsApi: ServiceCenterProvidesServiceService) { }
+  constructor(public router: Router, public _apiService: ServiceService, private _snackBar: MatSnackBar, public scpsApi: ServiceCenterProvidesServiceService, public serviceCenterApi: ServiceCenterService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -67,7 +70,16 @@ export class AddScheduleComponent implements OnInit {
                     this._apiService.getServiceCars(this.customerCar.car_ID).subscribe(
                       (res: any) => {
                         this.serviceCars = res;
-                        this.loading = false;
+                        this.serviceCenterApi.getServiceCenterById(this.customer.service_CENTER_ID).subscribe(
+                          (res: any) => {
+                            this.serviceCenter = res;
+                            this.loading = false;
+                          },
+                          (err: any) => {
+                            console.log(err);
+                            this.loading = false;
+                          }
+                        );
                       },
                       (err: any) => {
                         this.loading = false;
@@ -262,6 +274,11 @@ export class AddScheduleComponent implements OnInit {
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     // Prevent Sunday from being selected.
+    if (this.serviceCenter!=null){
+      if (this.serviceCenter.weekend_WORKING == 0){
+        return day !== 0 && day !== 6;
+      }
+    }
     return day !== 0;
   };
 
