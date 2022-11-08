@@ -101,8 +101,11 @@ public class ServiceEventController {
   @GetMapping("/api/serviceEvent/getMechanic/{service_center_id}")
   public Integer getAvailableMechanic(@PathVariable int service_center_id,
       @RequestParam(value = "date", defaultValue = "") String date) {
-    String sql = "SELECT SE.MECHANIC_ID FROM SERVICE_EVENT SE WHERE SE.service_center_id = " + service_center_id
-        + " AND '" + date + "' NOT BETWEEN SE.START_TIME AND SE.END_TIME";
+
+    String sql = "SELECT UNIQUE SE.MECHANIC_ID FROM SERVICE_EVENT SE WHERE SE.service_center_id = "
+        + service_center_id + " AND NOT EXISTS (SELECT * FROM SERVICE_EVENT SE1 WHERE SE1.mechanic_id = SE.mechanic_id AND SE1.service_center_id = SE.service_center_id AND trunc(SE1.START_TIME) = TO_DATE('"
+        + date + "', 'YYYY-MM-DD')) AND NOT EXISTS (SELECT * FROM LEAVE L WHERE TO_DATE('"
+        + date + "', 'YYYY-MM-DD') BETWEEN trunc(L.START_DATE) AND trunc(L.END_DATE) AND L.employee_id = SE.mechanic_id AND L.service_center_id = SE.service_center_id AND L.status = 1)";
 
     List<Integer> mechanics = jdbcTemplate.queryForList(
         sql,

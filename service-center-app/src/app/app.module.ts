@@ -36,6 +36,8 @@ import { AddLeaveComponent } from './add-leave/add-leave.component';
 import { AddSwapComponent } from './add-swap/add-swap.component';
 import { AddServiceComponent } from './add-service/add-service.component';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { AddScheduleComponent } from './add-schedule/add-schedule.component';
     MatSnackBarModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

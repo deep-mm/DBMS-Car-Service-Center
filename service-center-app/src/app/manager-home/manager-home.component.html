@@ -32,7 +32,6 @@
             <th scope="col">Phone</th>
             <th scope="col">Username</th>
             <th scope="col">Password</th>
-            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -46,9 +45,6 @@
             <td>{{employee.phone}}</td>
             <td>{{employee.username}}</td>
             <td>{{employee.password}}</td>
-            <td>
-                <button mat-raised-button color="warn" (click)="deleteEmployee(employee)" style="margin-left: 5px;">Delete</button>
-            </td>
         </tr>
     </tbody>
 </table>

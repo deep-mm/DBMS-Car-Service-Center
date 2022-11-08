@@ -15,7 +15,6 @@
             <th scope="col">Username</th>
             <th scope="col">Password</th>
             <th scope="col">Status</th>
-            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -28,9 +27,6 @@
             <td>{{customer.username}}</td>
             <td>{{customer.password}}</td>
             <td>{{customer.status==1?'Active':'Inactive'}}</td>
-            <td>
-                <button mat-raised-button color="warn" (click)="deleteCustomer(customer.service_CENTER_ID, customer.customer_ID)" style="margin-left: 5px;">Delete</button>
-            </td>
         </tr>
     </tbody>
 </table>

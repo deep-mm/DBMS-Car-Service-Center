@@ -79,6 +79,13 @@ export class CustomerHomeComponent implements OnInit {
     this.customerCarService.deleteCustomerCar(customerCar.vin).subscribe((res: any) => {
       this.loading = false;
       this.customerCars = this.customerCars.filter((car: CustomerCar) => car.vin !== customerCar.vin);
+      if (this.customerCars.length === 0) {
+        this.customer.status = 0;
+        this._apiService.updateCustomer(this.customer).subscribe((res: any) => {
+          this.customer = res;
+        }
+        );
+      }
       this._snackBar.open('Customer car deleted successfully!', 'Close', {
         duration: 3000,
       });

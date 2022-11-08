@@ -116,7 +116,7 @@
             <mat-label>Email</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Email="ngModel" [(ngModel)]="employee.email" name="Email" required type="email"
-                    maxlength="250" [class.is-invalid]="Email.invalid && (Email.touched || Email.dirty)">
+                    maxlength="250" [class.is-invalid]="Email.invalid && (Email.touched || Email.dirty)" email>
                 <mat-error *ngIf="Email.invalid && (Email.touched || Email.dirty)">
                     Enter a valid Email
                 </mat-error>
@@ -127,7 +127,7 @@
             <mat-label>Phone</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Phone="ngModel" [(ngModel)]="employee.phone" name="Phone" required type="text"
-                    maxlength="250" [class.is-invalid]="Phone.invalid && (Phone.touched || Phone.dirty)">
+                maxlength="10" minlength="10" [class.is-invalid]="Phone.invalid && (Phone.touched || Phone.dirty)">
                 <mat-error *ngIf="Phone.invalid && (Phone.touched || Phone.dirty)">
                     Enter a valid Phone
                 </mat-error>
@@ -138,7 +138,7 @@
             <mat-label>Username</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Username="ngModel" [(ngModel)]="employee.username" name="Username" required type="text"
-                    maxlength="250" [class.is-invalid]="Username.invalid && (Username.touched || Username.dirty)">
+                    maxlength="50" [class.is-invalid]="Username.invalid && (Username.touched || Username.dirty)">
                 <mat-error *ngIf="Username.invalid && (Username.touched || Username.dirty)">
                     Enter a valid Username
                 </mat-error>
@@ -149,7 +149,7 @@
             <mat-label>Password</mat-label><br>
             <mat-form-field appearance="outline">
                 <input matInput #Password="ngModel" [(ngModel)]="employee.password" name="Password" required type="text"
-                    maxlength="250" [class.is-invalid]="Password.invalid && (Password.touched || Password.dirty)">
+                    maxlength="50" [class.is-invalid]="Password.invalid && (Password.touched || Password.dirty)">
                 <mat-error *ngIf="Password.invalid && (Password.touched || Password.dirty)">
                     Enter a valid Password
                 </mat-error>
@@ -159,7 +159,7 @@
         <div style="margin-top: 10px;">
             <mat-label>Salary</mat-label><br>
             <mat-form-field appearance="outline">
-                <input matInput #Compensation="ngModel" [(ngModel)]="compensation" name="Compensation" required type="number"
+                <input matInput #Compensation="ngModel" [(ngModel)]="compensation" name="Compensation" required type="number" [min]="serviceCenter.min_WAGE"
                 [class.is-invalid]="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
                 <mat-error *ngIf="Compensation.invalid && (Compensation.touched || Compensation.dirty)">
                     Enter a valid salary amount

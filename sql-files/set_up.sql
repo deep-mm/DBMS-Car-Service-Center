@@ -207,26 +207,96 @@ CREATE TABLE SWAP_SLOT (
         REQUESTED_SERVICE_CENTER_ID
     )
 );
-create or replace TRIGGER VERIFY_WAGE_IS_IN_LIMIT
-BEFORE UPDATE OF hourly_rate ON HOURLY_PAID_EMPLOYEE
-FOR EACH ROW
-DECLARE maxWage REAL; minWage REAL;
+create or replace TRIGGER VERIFY_WAGE_IS_IN_LIMIT BEFORE
+UPDATE OF hourly_rate ON HOURLY_PAID_EMPLOYEE FOR EACH ROW
+DECLARE maxWage REAL;
+minWage REAL;
 BEGIN
-SELECT SC.MAX_WAGE into maxWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id;
-SELECT SC.MIN_WAGE into minWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id;
-IF :new.hourly_rate > maxWage OR :new.hourly_rate < minWage
-THEN :new.hourly_rate := :old.hourly_rate;
+SELECT SC.MAX_WAGE into maxWage
+FROM SERVICE_CENTER SC
+WHERE SC.service_center_id = :new.service_center_id;
+SELECT SC.MIN_WAGE into minWage
+FROM SERVICE_CENTER SC
+WHERE SC.service_center_id = :new.service_center_id;
+IF :new.hourly_rate > maxWage
+OR :new.hourly_rate < minWage THEN :new.hourly_rate := :old.hourly_rate;
 END IF;
 END;
-
-create or replace TRIGGER UPDATE_SERVICE_CENTER_STATUS
-BEFORE INSERT ON EMPLOYEE
-FOR EACH ROW
-WHEN (new.ROLE = 3)
+create or replace TRIGGER UPDATE_SERVICE_CENTER_STATUS BEFORE
+INSERT ON EMPLOYEE FOR EACH ROW
+    WHEN (new.ROLE = 3)
 DECLARE totalMechanics INT;
 BEGIN
-SELECT Count(*) into totalMechanics FROM EMPLOYEE E WHERE E.service_center_id = :new.service_center_id;
-IF totalMechanics >= 3 
-THEN UPDATE SERVICE_CENTER SC SET SC.operational_status = 1 WHERE SC.service_center_id = :new.service_center_id;
+SELECT Count(*) into totalMechanics
+FROM EMPLOYEE E
+WHERE E.service_center_id = :new.service_center_id;
+IF totalMechanics >= 3 THEN
+UPDATE SERVICE_CENTER SC
+SET SC.operational_status = 1
+WHERE SC.service_center_id = :new.service_center_id;
 END IF;
+END;
+create or replace TRIGGER CHECK_CUSTOMER_STATUS
+AFTER
+INSERT ON CUSTOMER_CAR FOR EACH ROW BEGIN
+UPDATE CUSTOMER C
+SET C.status = 1
+WHERE C.customer_id = :new.customer_id
+    AND C.service_center_id = :new.service_center_id;
+END;
+create or replace TRIGGER INSERT_SERVICE_CENTER_PROVIDES_SERVICE
+AFTER
+INSERT ON SERVICE FOR EACH ROW
+DECLARE serviceCenter SERVICE_CENTER.service_center_id %type;
+CURSOR serviceCenterCursor is
+select SC.SERVICE_CENTER_ID
+from SERVICE_CENTER SC;
+BEGIN OPEN serviceCenterCursor;
+LOOP FETCH serviceCenterCursor INTO serviceCenter;
+EXIT
+WHEN serviceCenterCursor %NOTFOUND;
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (serviceCenter, :new.id, 1, 100);
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (serviceCenter, :new.id, 2, 100);
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (serviceCenter, :new.id, 3, 100);
+END LOOP;
+CLOSE serviceCenterCursor;
+END;
+create or replace TRIGGER INSERT_SERVICE_CENTER_PROVIDES_SERVICE_ON_ADDING_SERVICE_CENTER
+AFTER
+INSERT ON SERVICE_CENTER FOR EACH ROW
+DECLARE serviceId SERVICE.id %type;
+CURSOR serviceCursor is
+select S.id
+from SERVICE S;
+BEGIN OPEN serviceCursor;
+LOOP FETCH serviceCursor INTO serviceId;
+EXIT
+WHEN serviceCursor %NOTFOUND;
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (:new.service_center_id, serviceId, 1, 100);
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (:new.service_center_id, serviceId, 2, 100);
+INSERT INTO SERVICE_CENTER_PROVIDES_SERVICE
+VALUES (:new.service_center_id, serviceId, 3, 100);
+END LOOP;
+CLOSE serviceCursor;
+END;
+create or replace TRIGGER AUTO_APPROVE_LEAVE BEFORE
+INSERT ON LEAVE FOR EACH ROW BEGIN :new.status := 1;
+END;
+create or replace TRIGGER ON_SWAP_SLOT_APPROVE
+AFTER
+UPDATE ON SWAP_SLOT FOR EACH ROW
+    WHEN (new.status = 1) BEGIN
+UPDATE SERVICE_EVENT SE
+SET SE.mechanic_id = :new.requested_employee_id
+WHERE :new.requestor_employee_id = SE.mechanic_id
+    AND :new.invoice_give = SE.invoice_id;
+UPDATE SERVICE_EVENT SE
+SET SE.mechanic_id = :new.requestor_employee_id
+WHERE :new.requested_employee_id = SE.mechanic_id
+    AND :new.invoice_take = SE.invoice_id;
 END;

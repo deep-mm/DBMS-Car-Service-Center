@@ -190,7 +190,7 @@ export class AddScheduleComponent implements OnInit {
   checkout() {
     this.loading = true;
     let datePipe = new DatePipe('en-US');
-    let dateString = datePipe.transform(this.preferredDate, 'dd-MMM-yyyy')!.toString();
+    let dateString = datePipe.transform(this.preferredDate, 'yyyy-MM-dd')!.toString();
     let currentStartTime = this.preferredTime;
     this._apiService.getAvailableMechanic(this.customer.service_CENTER_ID, dateString).subscribe(
       (res: any) => {
@@ -208,6 +208,9 @@ export class AddScheduleComponent implements OnInit {
               this.cartService.forEach(element => {
                 let start_TIME = currentStartTime > 12 ? currentStartTime - 12 : currentStartTime;
                 let end_TIME = +currentStartTime + this.getServiceTime(element);
+                if (currentStartTime <= 12 && end_TIME >= 1) {
+                  end_TIME = end_TIME + 1;
+                }
                 end_TIME = end_TIME > 12 ? end_TIME - 12 : end_TIME;
                 currentStartTime = end_TIME;
                 let serviceEvent = new ServiceEvent({
@@ -248,8 +251,35 @@ export class AddScheduleComponent implements OnInit {
       },
       (err: any) => {
         this.loading = false;
+        this._snackBar.open('No mechanic available. Please select a different date', 'Close', {
+          duration: 2000,
+        });
         console.log(err);
       }
     )
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Sunday from being selected.
+    return day !== 0;
   };
+
+  CheckDate() {
+    let day = this.preferredDate.getFullYear();
+    if (this.preferredDate.getDay() == 0){
+      this.preferredDate.setDate(this.preferredDate.getDate() + 1);
+      this._snackBar.open('Service center is closed on Sunday.', 'Close', {
+        duration: 2000,
+      });
+    }
+
+    if (this.preferredDate.getDay() == 6){
+      this.remainingTime = 4;
+      this.time = this.time.slice(0, this.remainingTime + 1);
+      this._snackBar.open('Service center works from 8am - 1pm on Saturday.', 'Close', {
+        duration: 2000,
+      });
+    }
+  }
 }
