@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(maxAge = 3600)
@@ -27,22 +28,22 @@ public class ServiceEventController {
     String sql = "SELECT * FROM SERVICE_EVENT";
 
     List<ServiceEvent> serviceEvents = jdbcTemplate.query(
-      sql,
-      BeanPropertyRowMapper.newInstance(ServiceEvent.class)
-    );
+        sql,
+        BeanPropertyRowMapper.newInstance(ServiceEvent.class));
 
     serviceEvents.forEach(System.out::println);
     return serviceEvents;
   }
 
   @GetMapping("/api/scheduledServices/{service_center_id}/{customer_id}")
-  public List<CustomerScheduledService> getScheduledServices(@PathVariable("customer_id") int customer_id, @PathVariable("service_center_id") int service_center_id) {
-    String sql = "SELECT UNIQUE S.SERVICE_NAME, CC.VIN, SE.start_time, SE.end_time FROM CUSTOMER C, SERVICE_EVENT SE, CUSTOMER_CAR CC, SERVICE S WHERE SE.vin = CC.vin AND SE.ID = S.ID AND CC.customer_id = C.customer_id AND CC.service_center_id = C.service_center_id AND C.customer_id = " + customer_id + " AND C.service_center_id = " + service_center_id + " ORDER BY START_TIME";
+  public List<CustomerScheduledService> getScheduledServices(@PathVariable("customer_id") int customer_id,
+      @PathVariable("service_center_id") int service_center_id) {
+    String sql = "SELECT UNIQUE S.SERVICE_NAME, CC.VIN, SE.start_time, SE.end_time FROM CUSTOMER C, SERVICE_EVENT SE, CUSTOMER_CAR CC, SERVICE S WHERE SE.vin = CC.vin AND SE.ID = S.ID AND CC.customer_id = C.customer_id AND CC.service_center_id = C.service_center_id AND C.customer_id = "
+        + customer_id + " AND C.service_center_id = " + service_center_id + " ORDER BY START_TIME";
 
     List<CustomerScheduledService> scheduledServices = jdbcTemplate.query(
-      sql,
-      BeanPropertyRowMapper.newInstance(CustomerScheduledService.class)
-    );
+        sql,
+        BeanPropertyRowMapper.newInstance(CustomerScheduledService.class));
 
     scheduledServices.forEach(System.out::println);
     return scheduledServices;
@@ -50,20 +51,38 @@ public class ServiceEventController {
 
   @PostMapping("/api/serviceEvent")
   public boolean addServiceEvent(@RequestBody ServiceEvent serviceEvent) {
-    String sql =
-      "INSERT INTO SERVICE_EVENT (SERVICE_ID, ID, MECHANIC_ID, SERVICE_CENTER_ID, VIN, INVOICE_ID, START_TIME, END_TIME) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO SERVICE_EVENT (SERVICE_ID, ID, MECHANIC_ID, SERVICE_CENTER_ID, VIN, INVOICE_ID, START_TIME, END_TIME) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     jdbcTemplate.update(
-      sql,
-      serviceEvent.getSERVICE_ID(),
-      serviceEvent.getID(),
-      serviceEvent.getMECHANIC_ID(),
-      serviceEvent.getSERVICE_CENTER_ID(),
-      serviceEvent.getVIN(),
-      serviceEvent.getINVOICE_ID(),
-      serviceEvent.getSTART_TIME(),
-      serviceEvent.getEND_TIME()
-    );
+        sql,
+        serviceEvent.getSERVICE_ID(),
+        serviceEvent.getID(),
+        serviceEvent.getMECHANIC_ID(),
+        serviceEvent.getSERVICE_CENTER_ID(),
+        serviceEvent.getVIN(),
+        serviceEvent.getINVOICE_ID(),
+        serviceEvent.getSTART_TIME(),
+        serviceEvent.getEND_TIME());
+
+    return true;
+  }
+
+  @PostMapping("/api/serviceEvent/all")
+  public boolean addServiceEvents(@RequestBody List<ServiceEvent> serviceEvents) {
+    String sql = "INSERT INTO SERVICE_EVENT (SERVICE_ID, ID, MECHANIC_ID, SERVICE_CENTER_ID, VIN, INVOICE_ID, START_TIME, END_TIME) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    for (ServiceEvent serviceEvent : serviceEvents) {
+      jdbcTemplate.update(
+          sql,
+          serviceEvent.getSERVICE_ID(),
+          serviceEvent.getID(),
+          serviceEvent.getMECHANIC_ID(),
+          serviceEvent.getSERVICE_CENTER_ID(),
+          serviceEvent.getVIN(),
+          serviceEvent.getINVOICE_ID(),
+          serviceEvent.getSTART_TIME(),
+          serviceEvent.getEND_TIME());
+    }
 
     return true;
   }
@@ -73,32 +92,41 @@ public class ServiceEventController {
     String sql = "SELECT * FROM SERVICE_EVENT WHERE SERVICE_ID = " + service_id;
 
     List<ServiceEvent> serviceEvents = jdbcTemplate.query(
-      sql,
-      BeanPropertyRowMapper.newInstance(ServiceEvent.class)
-    );
+        sql,
+        BeanPropertyRowMapper.newInstance(ServiceEvent.class));
 
     return serviceEvents.get(0);
   }
 
+  @GetMapping("/api/serviceEvent/getMechanic/{service_center_id}")
+  public Integer getAvailableMechanic(@PathVariable int service_center_id,
+      @RequestParam(value = "date", defaultValue = "") String date) {
+    String sql = "SELECT SE.MECHANIC_ID FROM SERVICE_EVENT SE WHERE SE.service_center_id = " + service_center_id
+        + " AND '" + date + "' NOT BETWEEN SE.START_TIME AND SE.END_TIME";
+
+    List<Integer> mechanics = jdbcTemplate.queryForList(
+        sql,
+        Integer.class);
+
+    return mechanics.get(0);
+  }
+
   @PutMapping("/api/serviceEvent/{service_id}")
   public boolean updateServiceEvent(
-    @PathVariable int service_id,
-    @RequestBody ServiceEvent serviceEvent
-  ) {
-    String sql =
-      "UPDATE SERVICE_EVENT SET MECHANIC_ID = ?, VIN = ?, INVOICE_ID = ?, START_TIME = ?, END_TIME = ?, SERVICE_CENTER_ID = ?, ID = ? WHERE SERVICE_ID = ?";
+      @PathVariable int service_id,
+      @RequestBody ServiceEvent serviceEvent) {
+    String sql = "UPDATE SERVICE_EVENT SET MECHANIC_ID = ?, VIN = ?, INVOICE_ID = ?, START_TIME = ?, END_TIME = ?, SERVICE_CENTER_ID = ?, ID = ? WHERE SERVICE_ID = ?";
 
     jdbcTemplate.update(
-      sql,
-      serviceEvent.getMECHANIC_ID(),
-      serviceEvent.getVIN(),
-      serviceEvent.getINVOICE_ID(),
-      serviceEvent.getSTART_TIME(),
-      serviceEvent.getEND_TIME(),
-      serviceEvent.getSERVICE_CENTER_ID(),
-      serviceEvent.getID(),
-      service_id
-    );
+        sql,
+        serviceEvent.getMECHANIC_ID(),
+        serviceEvent.getVIN(),
+        serviceEvent.getINVOICE_ID(),
+        serviceEvent.getSTART_TIME(),
+        serviceEvent.getEND_TIME(),
+        serviceEvent.getSERVICE_CENTER_ID(),
+        serviceEvent.getID(),
+        service_id);
 
     return true;
   }

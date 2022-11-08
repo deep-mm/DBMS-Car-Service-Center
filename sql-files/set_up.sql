@@ -207,3 +207,26 @@ CREATE TABLE SWAP_SLOT (
         REQUESTED_SERVICE_CENTER_ID
     )
 );
+create or replace TRIGGER VERIFY_WAGE_IS_IN_LIMIT
+BEFORE UPDATE OF hourly_rate ON HOURLY_PAID_EMPLOYEE
+FOR EACH ROW
+DECLARE maxWage REAL; minWage REAL;
+BEGIN
+SELECT SC.MAX_WAGE into maxWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id;
+SELECT SC.MIN_WAGE into minWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id;
+IF :new.hourly_rate > maxWage OR :new.hourly_rate < minWage
+THEN :new.hourly_rate := :old.hourly_rate;
+END IF;
+END;
+
+create or replace TRIGGER UPDATE_SERVICE_CENTER_STATUS
+BEFORE INSERT ON EMPLOYEE
+FOR EACH ROW
+WHEN (new.ROLE = 3)
+DECLARE totalMechanics INT;
+BEGIN
+SELECT Count(*) into totalMechanics FROM EMPLOYEE E WHERE E.service_center_id = :new.service_center_id;
+IF totalMechanics >= 3 
+THEN UPDATE SERVICE_CENTER SC SET SC.operational_status = 1 WHERE SC.service_center_id = :new.service_center_id;
+END IF;
+END;

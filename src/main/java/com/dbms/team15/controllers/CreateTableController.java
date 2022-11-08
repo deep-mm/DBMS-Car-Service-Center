@@ -427,4 +427,52 @@ public class CreateTableController {
     return true;
   }
 
+  @GetMapping("/create/trigger/ensure_hourly_rate")
+  public boolean CreateTriggerEnsureHourlyRate() {
+    
+    String sql = new StringBuilder()
+    .append("CREATE TRIGGER ENSURE_HOURLY_RATE ")
+    .append("BEFORE UPDATE OF hourly_rate ON HOURLY_PAID_EMPLOYEE ")
+    .append("FOR EACH ROW ")
+    .append("DECLARE maxWage REAL; minWage REAL; ")
+    .append("BEGIN ")
+    .append("SELECT SC.MAX_WAGE into maxWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id; ")
+    .append("SELECT SC.MIN_WAGE into minWage FROM SERVICE_CENTER SC WHERE SC.service_center_id = :new.service_center_id; ")
+    .append("IF :new.hourly_rate > maxWage OR :new.hourly_rate < minWage ")
+    .append("THEN :new.hourly_rate := :old.hourly_rate; ")
+    .append("END IF; ")
+    .append("END; ")
+    .toString();
+
+    jdbcTemplate.execute(
+      sql
+    );
+
+    return true;
+  }
+
+  @GetMapping("/create/trigger/update_service_center_status")
+  public boolean CreateTriggerUpdateServiceCenterStatus() {
+
+    String sql = new StringBuilder()
+    .append("CREATE TRIGGER UPDATE_SERVICE_CENTER_STATUS ")
+    .append("BEFORE INSERT ON EMPLOYEE ")
+    .append("FOR EACH ROW ")
+    .append("WHEN (new.ROLE = 3) ")
+    .append("DECLARE totalMechanics INT; ")
+    .append("BEGIN ")
+    .append("SELECT Count(*) into totalMechanics FROM EMPLOYEE E WHERE E.service_center_id = :new.service_center_id; ")
+    .append("IF totalMechanics >= 3 ")
+    .append("THEN UPDATE SERVICE_CENTER SC SET SC.operational_status = 1 WHERE SC.service_center_id = :new.service_center_id; ")
+    .append("END IF; ")
+    .append("END; ")
+    .toString();
+
+    jdbcTemplate.execute(
+      sql
+    );
+
+    return true;
+  }
+
 }

@@ -6,6 +6,7 @@ import { RepairService } from '../models/RepairService';
 import { ScheduleBundle } from '../models/ScheduleBundle';
 import { Service } from '../models/Service';
 import { ServiceCategory } from '../models/ServiceCategory';
+import { ServicesCar } from '../models/ServicesCar';
 import { ScheduleBundleService } from '../services/schedule-bundle/schedule-bundle.service';
 import { ServiceCategoryService } from '../services/service-category/service-category.service';
 import { ServiceService } from '../services/service/service.service';
@@ -37,6 +38,7 @@ export class AddServiceComponent implements OnInit {
   scheduleBundles: ScheduleBundle[] = [];
   repairServiceCheck: boolean = false;
   maintenanceServiceCheck: boolean = false;
+  timeTaken = [0,0,0]
 
   constructor(public router: Router, public _apiService: ServiceService, private _snackBar: MatSnackBar, private categoryServce: ServiceCategoryService, private scheduleBundleService: ScheduleBundleService) { }
 
@@ -99,6 +101,25 @@ export class AddServiceComponent implements OnInit {
               this.loading = false;
               console.error('Error occurred while adding maintenance service to the database. Error: ' + error);
             });
+        }
+
+        for (let i=0; i<3; i++){
+          let serviceCar = new ServicesCar({
+            id: this.service.id,
+            car_ID: i+1,
+            time_ESTIMATED: this.timeTaken[i]
+          });
+          this._apiService.addServiceCar(serviceCar).subscribe((result: boolean) => {
+            if (result) {
+              this._snackBar.open('Service added successfully', 'Close', {
+                duration: 2000,
+              });
+              this.router.navigate(['adminHomePage']);
+              this.loading = false;
+            }
+            this.loading = false;
+          }
+          );
         }
       }
       else{

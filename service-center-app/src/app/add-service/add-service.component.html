@@ -51,6 +51,41 @@
             </mat-form-field>
         </div>
 
+        <div style="margin-top: 10px;">
+            <mat-label>Time Taken for Honda</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #TimeTakenHonda="ngModel" [(ngModel)]="timeTaken[0]" name="TimeTakenHonda" required type="number" min="0"
+                    maxlength="50" [class.is-invalid]="TimeTakenHonda.invalid && (TimeTakenHonda.touched || TimeTakenHonda.dirty)">
+                <mat-error *ngIf="TimeTakenHonda.invalid && (TimeTakenHonda.touched || TimeTakenHonda.dirty)">
+                    Enter a valid time
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Nissan-->
+        <div style="margin-top: 10px;">
+            <mat-label>Time Taken for Nissan</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #TimeTakenNissan="ngModel" [(ngModel)]="timeTaken[1]" name="TimeTakenNissan" required type="number" min="0"
+                    maxlength="50" [class.is-invalid]="TimeTakenNissan.invalid && (TimeTakenNissan.touched || TimeTakenNissan.dirty)">
+                <mat-error *ngIf="TimeTakenNissan.invalid && (TimeTakenNissan.touched || TimeTakenNissan.dirty)">
+                    Enter a valid time
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Toyota-->
+        <div style="margin-top: 10px;">
+            <mat-label>Time Taken for Toyota</mat-label><br>
+            <mat-form-field appearance="outline">
+                <input matInput #TimeTakenToyota="ngModel" [(ngModel)]="timeTaken[2]" name="TimeTakenToyota" required type="number" min="0"
+                    maxlength="50" [class.is-invalid]="TimeTakenToyota.invalid && (TimeTakenToyota.touched || TimeTakenToyota.dirty)">
+                <mat-error *ngIf="TimeTakenToyota.invalid && (TimeTakenToyota.touched || TimeTakenToyota.dirty)">
+                    Enter a valid time
+                </mat-error>
+            </mat-form-field>
+        </div>
+
         <br>
         <button mat-raised-button (click)="submitForm()" [disabled]="leaveForm.form.invalid"
             style="margin-top: 50px;">Submit</button>

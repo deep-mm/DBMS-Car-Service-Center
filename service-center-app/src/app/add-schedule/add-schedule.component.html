@@ -8,15 +8,47 @@
         <tr class="header" style="background-color: #ffffff;">
             <th scope="col">Service ID</th>
             <th scope="col">Service Name</th>
+            <th scope="col">Service Time (hrs)</th>
+            <th scope="col">Service Price ($)</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let service of cartService" class="table-row-item">
             <td>{{service.id}}</td>
             <td>{{service.service_NAME}}</td>
+            <td>{{getServiceTime(service)}}</td>
+            <td>{{getServicePrice(service)}}</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td></td>
+            <td><strong>{{getTotalTime()}}</strong></td>
+            <td><strong>{{getTotalPrice()}}</strong></td>
         </tr>
     </tbody>
 </table>
+<div>
+<mat-label>Preferred Date</mat-label><br>
+<mat-form-field appearance="outline">
+    <input matInput #PreferredDate="ngModel" [(ngModel)]="preferredDate" name="PreferredDate" required min="{{date | date:'yyyy-MM-dd'}}"
+        type="date" [class.is-invalid]="PreferredDate.invalid && (PreferredDate.touched || PreferredDate.dirty)">
+    <mat-error *ngIf="PreferredDate.invalid && (PreferredDate.touched || PreferredDate.dirty)">
+        Enter a valid date
+    </mat-error>
+</mat-form-field>
+</div>
+<div>
+<mat-label>Preferred Start Time</mat-label><br>
+<mat-form-field appearance="outline">
+    <select matNativeControl [(ngModel)]="preferredTime" name="time">
+        <option value="" selected></option>
+        <option *ngFor="let t of time" [value]="t">
+            {{t + ":00"}}
+        </option>
+    </select>
+</mat-form-field>
+</div>
+<br>
 <button mat-raised-button (click)="checkout()" *ngIf="cartService.length>0">Checkout</button>
 
 <br><br>
@@ -26,6 +58,8 @@
         <tr class="header" style="background-color: #ffffff;">
             <th scope="col">Service ID</th>
             <th scope="col">Service Name</th>
+            <th scope="col">Service Time (hrs)</th>
+            <th scope="col">Service Price ($)</th>
             <th scope="col">Add to cart</th>
         </tr>
     </thead>
@@ -33,8 +67,10 @@
         <tr *ngFor="let service of onlyRepairServices" class="table-row-item">
             <td>{{service.id}}</td>
             <td>{{service.service_NAME}}</td>
+            <td>{{getServiceTime(service)}}</td>
+            <td>{{getServicePrice(service)}}</td>
             <td>
-                <button mat-raised-button (click)="addToCart(service)" *ngIf="!isServiceInCart(service)">Add to cart</button>
+                <button mat-raised-button (click)="addToCart(service)" *ngIf="!isServiceInCart(service)" [disabled]="getServiceTime(service) > remainingTime">Add to cart</button>
             </td>
         </tr>
     </tbody>
@@ -42,8 +78,7 @@
 
 <div style="margin-bottom: 50px;">
 <h3><strong>Maintenance Service</strong></h3>
-<h4>Your next scheduled maintenance is: Schedule {{this.nextScheduledService}} <button mat-raised-button (click)="addMaintenanceServicesToCart()" *ngIf="!maintenanceServiceAdded" style="margin-left: 10px;">Add to cart</button></h4>
+<h4>Your next scheduled maintenance is: <strong>Schedule {{this.nextScheduledService}}</strong> <button mat-raised-button (click)="addMaintenanceServicesToCart()" *ngIf="!maintenanceServiceAdded" style="margin-left: 10px;">Add to cart</button></h4>
 </div>
 <br><br>
 </div>
-
