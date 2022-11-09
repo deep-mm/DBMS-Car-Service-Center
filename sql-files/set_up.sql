@@ -284,9 +284,6 @@ VALUES (:new.service_center_id, serviceId, 3, 100);
 END LOOP;
 CLOSE serviceCursor;
 END;
-create or replace TRIGGER AUTO_APPROVE_LEAVE BEFORE
-INSERT ON LEAVE FOR EACH ROW BEGIN :new.status := 1;
-END;
 create or replace TRIGGER ON_SWAP_SLOT_APPROVE
 AFTER
 UPDATE ON SWAP_SLOT FOR EACH ROW
@@ -299,4 +296,37 @@ UPDATE SERVICE_EVENT SE
 SET SE.mechanic_id = :new.requestor_employee_id
 WHERE :new.requested_employee_id = SE.mechanic_id
     AND :new.invoice_take = SE.invoice_id;
+END;
+create or replace TRIGGER AUTO_APPROVE_LEAVE BEFORE
+INSERT ON LEAVE FOR EACH ROW
+DECLARE activeMechanics INT;
+events INT;
+BEGIN
+SELECT Count(*) into activeMechanics
+FROM EMPLOYEE E
+WHERE E.Role = 3
+    AND E.employee_id <> :new.employee_id
+    AND E.service_center_id = :new.service_center_id
+    AND NOT EXISTS (
+        SELECT *
+        FROM LEAVE L
+        WHERE L.employee_id = E.employee_id
+            AND L.service_center_id = E.service_center_id
+            AND L.status = 1
+            AND (
+                :new.START_DATE BETWEEN trunc(L.START_DATE) AND trunc(L.END_DATE)
+            )
+            OR (
+                :new.END_DATE BETWEEN trunc(L.START_DATE) AND trunc(L.END_DATE)
+            )
+    );
+SELECT Count(*) into events
+FROM SERVICE_EVENT SE
+WHERE SE.mechanic_id = :new.employee_id
+    AND SE.service_center_id = :new.service_center_id
+    AND SE.START_TIME BETWEEN trunc(:new.START_DATE) AND trunc(:new.END_DATE);
+IF activeMechanics >= 3
+and events = 0 THEN :new.status := 1;
+ELSE :new.status := 2;
+END IF;
 END;
