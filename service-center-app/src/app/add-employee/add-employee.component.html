@@ -51,7 +51,7 @@
         <div style="margin-top: 10px;">
             <mat-label>Role</mat-label><br>
             <mat-select [(ngModel)]="employee.role" name="role">
-                <mat-option *ngFor="let role of roles" [value]="roles.indexOf(role)">
+                <mat-option *ngFor="let role of roles" [value]="roles.indexOf(role)+2">
                     {{role}}
                 </mat-option>
             </mat-select>

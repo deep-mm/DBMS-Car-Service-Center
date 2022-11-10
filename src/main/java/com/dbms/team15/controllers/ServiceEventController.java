@@ -102,10 +102,12 @@ public class ServiceEventController {
   public Integer getAvailableMechanic(@PathVariable int service_center_id,
       @RequestParam(value = "date", defaultValue = "") String date) {
 
-    String sql = "SELECT UNIQUE SE.MECHANIC_ID FROM SERVICE_EVENT SE WHERE SE.service_center_id = "
-        + service_center_id + " AND NOT EXISTS (SELECT * FROM SERVICE_EVENT SE1 WHERE SE1.mechanic_id = SE.mechanic_id AND SE1.service_center_id = SE.service_center_id AND trunc(SE1.START_TIME) = TO_DATE('"
+    String sql = "SELECT UNIQUE E.EMPLOYEE_ID FROM EMPLOYEE E WHERE E.service_center_id = "
+        + service_center_id
+        + " AND E.role = 3 AND NOT EXISTS (SELECT * FROM SERVICE_EVENT SE1 WHERE SE1.mechanic_id = E.EMPLOYEE_ID AND SE1.service_center_id = E.service_center_id AND trunc(SE1.START_TIME) = TO_DATE('"
         + date + "', 'YYYY-MM-DD')) AND NOT EXISTS (SELECT * FROM LEAVE L WHERE TO_DATE('"
-        + date + "', 'YYYY-MM-DD') BETWEEN trunc(L.START_DATE) AND trunc(L.END_DATE) AND L.employee_id = SE.mechanic_id AND L.service_center_id = SE.service_center_id AND L.status = 1)";
+        + date
+        + "', 'YYYY-MM-DD') BETWEEN trunc(L.START_DATE) AND trunc(L.END_DATE) AND L.employee_id = E.employee_id AND L.service_center_id = E.service_center_id AND L.status = 1)";
 
     List<Integer> mechanics = jdbcTemplate.queryForList(
         sql,
