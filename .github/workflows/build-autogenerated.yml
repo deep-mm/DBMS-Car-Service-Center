@@ -1,0 +1,54 @@
+1. Create a new file named `workflow.yaml` in the `.github/workflows` directory of your repository.
+
+2. Copy and paste the following contents into the `workflow.yaml` file:
+
+```yaml
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Build and Test
+        run: |
+          mvn clean install
+          npm install
+          npm run build
+          npm test
+
+      - name: Lint checks
+        run: |
+          npm run lint
+```
+
+3. Save the `workflow.yaml` file.
+
+This workflow will trigger on every push and pull request to the `main` branch. It sets up the required JDK and Node.js versions, checks out the code, and then runs the build and test commands.
+
+The build and test commands assume that you have a Maven `pom.xml` file for Java and an `npm` configuration for JavaScript/TypeScript projects. It will run `mvn clean install` to build and test the Java code, and then `npm install`, `npm run build`, and `npm test` to build and test the JavaScript/TypeScript code.
+
+Additionally, the workflow includes a step for lint checks. If you have linting configured for your project, you can add the linting command in the `Lint checks` step.
+
+Please note that this workflow assumes that you have the necessary dependencies and configurations in your repository for building and testing the code.
