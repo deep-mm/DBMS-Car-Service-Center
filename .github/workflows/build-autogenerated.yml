@@ -20,10 +20,10 @@ jobs:
         java-version: 11
 
     - name: Build with Maven
-      run: mvn -B package --file service-center-app/pom.xml
+      run: mvn -B package --file pom.xml
 
     - name: Run tests
-      run: mvn test --file service-center-app/pom.xml
+      run: mvn test --file pom.xml
 
     - name: Static code analysis
       run: mvn checkstyle:check
